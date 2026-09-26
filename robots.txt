@@ -1,0 +1,3 @@
+# PREVIA do site - POP Lanches - nao indexar.
+User-agent: *
+Disallow: /

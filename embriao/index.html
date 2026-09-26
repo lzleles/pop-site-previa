@@ -1,0 +1,587 @@
+<!doctype html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="previa-commit" content="61b664650357">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>POP Lanches e Pizzas — embrião do site (ZELES)</title>
+<style>
+:root{
+  --red:#F62A25; --red-d:#C72017; --ink:#141111; --ink2:#595655; --line:#e6ded6;
+  --bg:#f7f2ec; --card:#ffffff; --green:#13994B; --yellow:#F3C90C; --gold:#CD9143;
+  --ex:#7a4dff; --warn:#b45309;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer}
+.app{max-width:480px;margin:0 auto;min-height:100vh;background:var(--bg);position:relative;padding-bottom:84px}
+/* faixa de demonstração */
+.demo-strip{background:#111;color:#fff;font-size:11.5px;padding:6px 12px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.demo-strip b{color:var(--yellow)}
+.switch{display:flex;background:#2a2525;border-radius:999px;padding:2px}
+.switch button{border:0;background:transparent;color:#cfc7c0;padding:4px 10px;border-radius:999px;font-size:11.5px;font-weight:600}
+.switch button.on{background:var(--red);color:#fff}
+/* cabeçalho da loja */
+.hero{background:var(--red);color:#fff;padding:16px 16px 14px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;background:rgba(0,0,0,.12)}
+.brand{display:flex;gap:12px;align-items:center;position:relative;z-index:1}
+.logo{width:54px;height:54px;border-radius:50%;background:#fff;color:var(--red);display:grid;place-items:center;font-weight:900;font-size:17px;letter-spacing:-.5px;border:3px solid #111;flex:none}
+.brand h1{margin:0;font-size:20px;line-height:1.1;font-weight:800}
+.brand small{opacity:.9;font-size:12.5px}
+.status-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;position:relative;z-index:1}
+.pill{background:rgba(255,255,255,.18);border-radius:999px;padding:4px 10px;font-size:12px;white-space:nowrap}
+.pill.open{background:#fff;color:var(--green);font-weight:700}
+.pill.paused{background:#111;color:var(--yellow);font-weight:700}
+.tbd{display:inline-block;background:#fff3cd;color:#7a5b00;border:1px dashed #d9b74a;border-radius:6px;padding:0 5px;font-size:11px;font-weight:700;letter-spacing:.2px;vertical-align:1px}
+.hero .tbd{background:rgba(255,255,255,.2);color:#fff;border-color:rgba(255,255,255,.6)}
+.ex{display:inline-block;background:#efe9ff;color:var(--ex);border:1px dashed #b9a4ff;border-radius:6px;padding:0 5px;font-size:11px;font-weight:800}
+.banner{margin:12px 16px 0;background:#fff;border:1px solid var(--line);border-left:4px solid var(--yellow);border-radius:10px;padding:10px 12px;font-size:12.5px;color:var(--ink2)}
+.banner.paused{border-left-color:#111;background:#111;color:#fff}
+/* categorias */
+.cats{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 12px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line)}
+.cats::-webkit-scrollbar{display:none}
+.cat{flex:none;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:7px 13px;font-weight:700;font-size:13.5px;color:var(--ink)}
+.cat.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+section.cat-sec{padding:6px 16px 4px}
+section.cat-sec h2{font-size:17px;margin:14px 0 8px;display:flex;align-items:center;gap:8px}
+section.cat-sec h2 small{font-weight:500;color:var(--ink2);font-size:12px}
+.item{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px;align-items:center;width:100%;text-align:left;color:inherit}
+.item:disabled{opacity:.55;cursor:not-allowed}
+.item .txt{flex:1;min-width:0}
+.item h3{margin:0 0 2px;font-size:15px}
+.item p{margin:0;color:var(--ink2);font-size:12.5px}
+.item .price{margin-top:6px;font-weight:800;font-size:14px}
+.thumb{width:74px;height:74px;border-radius:12px;background:linear-gradient(135deg,#fde2d6,#f6c9b3);display:grid;place-items:center;font-size:34px;flex:none;position:relative}
+.thumb span{position:absolute;bottom:3px;left:0;right:0;text-align:center;font-size:8.5px;color:#7a4a3a;font-weight:700;letter-spacing:.2px}
+.tag-esg{display:inline-block;background:#111;color:#fff;border-radius:6px;font-size:11px;font-weight:800;padding:1px 6px;margin-left:4px}
+.fonte{font-size:11px;color:#8b817a;margin:2px 16px 0}
+/* barra do carrinho */
+.cartbar{position:fixed;left:50%;transform:translateX(-50%);bottom:12px;width:calc(100% - 24px);max-width:456px;background:var(--red);color:#fff;border:0;border-radius:14px;padding:13px 16px;display:flex;justify-content:space-between;align-items:center;font-weight:800;box-shadow:0 8px 24px rgba(199,32,23,.35);z-index:20}
+.cartbar .n{background:#fff;color:var(--red);border-radius:999px;min-width:24px;height:24px;display:inline-grid;place-items:center;font-size:13px;margin-right:8px;padding:0 6px}
+/* telas internas */
+.top{display:flex;align-items:center;gap:10px;padding:12px 14px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:6}
+.top button.back{border:0;background:#f1ebe5;border-radius:10px;width:36px;height:36px;font-size:18px}
+.top h2{margin:0;font-size:17px}
+.pad{padding:14px 16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+.card h3{margin:0 0 8px;font-size:15px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.rule{font-size:11.5px;font-weight:700;color:var(--ink2);background:#f1ebe5;border-radius:6px;padding:2px 7px}
+.opt{display:flex;align-items:center;justify-content:space-between;padding:10px 2px;border-top:1px solid #f1ebe5;font-size:14px;gap:10px}
+.opt:first-of-type{border-top:0}
+.opt input{width:20px;height:20px;accent-color:var(--red)}
+.opt.dis{color:#a79d96}
+textarea,input[type=text],input[type=tel],select{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;font:inherit;background:#fff;color:var(--ink)}
+textarea{min-height:64px;resize:vertical}
+label.f{display:block;font-size:12.5px;font-weight:700;color:var(--ink2);margin:10px 0 4px}
+.qty{display:flex;align-items:center;gap:10px}
+.qty button{width:34px;height:34px;border-radius:10px;border:1.5px solid var(--line);background:#fff;font-size:18px;font-weight:800}
+.big{width:100%;border:0;border-radius:14px;padding:14px;font-weight:800;font-size:15.5px;background:var(--red);color:#fff}
+.big.alt{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+.big.green{background:var(--green)}
+.big:disabled{background:#cbbfb6;cursor:not-allowed}
+.row{display:flex;justify-content:space-between;gap:10px;padding:5px 0;font-size:14px}
+.row.tot{font-weight:800;font-size:16px;border-top:1px dashed var(--line);margin-top:6px;padding-top:10px}
+.line-item{display:flex;gap:10px;padding:10px 0;border-top:1px solid #f1ebe5}
+.line-item:first-child{border-top:0}
+.line-item .d{flex:1;font-size:14px}
+.line-item .d small{display:block;color:var(--ink2);font-size:12px}
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pay button{border:2px solid var(--line);background:#fff;border-radius:14px;padding:12px 8px;font-weight:800;text-align:center}
+.pay button small{display:block;font-weight:500;color:var(--ink2);font-size:11.5px;margin-top:2px}
+.pay button.on{border-color:var(--red);background:#fff4f2}
+.checks{list-style:none;margin:0;padding:0}
+.checks li{display:flex;gap:8px;align-items:flex-start;padding:5px 0;font-size:13.5px}
+.checks li b{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:12px;color:#fff;background:var(--green)}
+.checks li.no b{background:var(--red)}
+.checks li.no{color:var(--red-d);font-weight:700}
+.sim{position:relative}
+.sim:after{content:"SIMULAÇÃO";position:absolute;inset:0;display:grid;place-items:center;font-weight:900;font-size:26px;letter-spacing:2px;color:rgba(246,42,37,.85);transform:rotate(-18deg);pointer-events:none;text-shadow:0 0 6px #fff,0 0 2px #fff}
+.qr{width:200px;height:200px;margin:6px auto;display:block;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px}
+.copy{font-family:ui-monospace,Consolas,monospace;font-size:12px;background:#f1ebe5;border-radius:8px;padding:8px;word-break:break-all;color:#6b625c}
+.note{font-size:12px;color:var(--ink2);margin:6px 0 0}
+.fake{border:1.5px dashed #d6ccc4;border-radius:10px;padding:10px 12px;color:#b3a89f;background:#faf7f4;margin-bottom:8px;font-family:ui-monospace,Consolas,monospace;font-size:13px}
+/* estados do pedido */
+.steps{list-style:none;margin:0;padding:0;position:relative}
+.steps li{display:flex;gap:12px;padding:0 0 16px;position:relative}
+.steps li:before{content:"";position:absolute;left:13px;top:28px;bottom:0;width:2px;background:var(--line)}
+.steps li:last-child:before{display:none}
+.steps .dot{width:28px;height:28px;border-radius:50%;border:2px solid var(--line);background:#fff;flex:none;display:grid;place-items:center;font-size:13px;font-weight:800;color:#b3a89f;z-index:1}
+.steps li.done .dot{background:var(--green);border-color:var(--green);color:#fff}
+.steps li.now .dot{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 0 0 5px rgba(246,42,37,.18)}
+.steps li.done:before{background:var(--green)}
+.steps .t{font-weight:800;font-size:14.5px}
+.steps .s{font-size:12.5px;color:var(--ink2)}
+.steps li.fut .t{color:#b3a89f}
+/* gestão */
+.g-head{background:#111;color:#fff;padding:14px 16px}
+.g-head h1{margin:0;font-size:18px}
+.g-head p{margin:4px 0 0;font-size:12.5px;color:#cfc7c0}
+.ex-banner{margin:12px 16px 0;background:#efe9ff;border:1px dashed #b9a4ff;color:#4b2fb3;border-radius:10px;padding:9px 12px;font-size:12.5px}
+.chips{display:flex;gap:8px;padding:12px 16px 0}
+.chips button{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;font-weight:700;font-size:13px}
+.chips button.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 16px 0}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}
+.kpi .l{font-size:12px;color:var(--ink2);font-weight:700}
+.kpi .v{font-size:22px;font-weight:900;margin-top:2px;letter-spacing:-.3px}
+.kpi .s{font-size:11.5px;color:var(--ink2)}
+.g-sec{padding:0 16px}
+.g-sec h2{font-size:15.5px;margin:18px 0 8px;display:flex;justify-content:space-between;align-items:center}
+.g-sec h2 small{font-weight:500;font-size:11.5px;color:var(--ink2)}
+.bars .b{display:grid;grid-template-columns:118px 1fr 64px;gap:8px;align-items:center;font-size:12.5px;padding:4px 0}
+.bars .b .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bars .track{height:12px;background:#f1ebe5;border-radius:6px;overflow:hidden}
+.bars .fill{height:100%;background:var(--red);border-radius:6px}
+.bars .val{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.vbars{display:flex;align-items:flex-end;gap:5px;height:120px;padding-top:6px}
+.vbars .c{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+.vbars .c i{display:block;width:100%;background:var(--red);border-radius:5px 5px 0 0;min-height:2px}
+.vbars .c.pk i{background:var(--red-d)}
+.vbars .c span{font-size:10.5px;color:var(--ink2);margin-top:4px}
+.vbars .c em{font-style:normal;font-size:10px;font-weight:700;margin-bottom:2px}
+table.t{width:100%;border-collapse:collapse;font-size:12.5px}
+table.t th{text-align:left;color:var(--ink2);font-weight:700;padding:6px 4px;border-bottom:1px solid var(--line);font-size:11.5px}
+table.t td{padding:7px 4px;border-bottom:1px solid #f1ebe5;font-variant-numeric:tabular-nums}
+table.t td.r,table.t th.r{text-align:right}
+.ctl{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-top:1px solid #f1ebe5;font-size:14px;gap:10px}
+.ctl:first-of-type{border-top:0}
+.tog{width:48px;height:28px;border-radius:999px;background:#d6ccc4;border:0;position:relative;flex:none}
+.tog:after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:left .15s}
+.tog.on{background:var(--green)}
+.tog.on:after{left:23px}
+.tog.red.on{background:#111}
+.ord{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;background:#fff}
+.ord.ring{border-color:var(--red);box-shadow:0 0 0 3px rgba(246,42,37,.15);animation:ring 1.2s infinite}
+@keyframes ring{50%{box-shadow:0 0 0 6px rgba(246,42,37,.05)}}
+.ord .h{display:flex;justify-content:space-between;font-weight:800;font-size:14px}
+.ord .m{font-size:12.5px;color:var(--ink2);margin:3px 0 8px}
+.ord .acts{display:flex;gap:6px;flex-wrap:wrap}
+.ord .acts button{border:0;border-radius:9px;padding:7px 11px;font-weight:800;font-size:12.5px;background:var(--ink);color:#fff}
+.ord .acts button.ok{background:var(--green)}
+.ord .acts button.x{background:#fff;color:var(--red-d);border:1.5px solid #f3c3bf}
+.st{display:inline-block;border-radius:6px;padding:1px 7px;font-size:11.5px;font-weight:800;background:#f1ebe5;color:var(--ink2)}
+.st.pago{background:#fff4f2;color:var(--red-d)} .st.aceito,.st.cozinha{background:#fff7dc;color:#8a6500} .st.saiu{background:#e6f4ff;color:#0b5ea8} .st.entregue{background:#e5f6ec;color:var(--green)} .st.cancelado{background:#eee;color:#777}
+.funnel .fs{display:grid;grid-template-columns:120px 1fr 54px;gap:8px;align-items:center;font-size:12.5px;padding:4px 0}
+.funnel .fs .track{height:18px;background:#f1ebe5;border-radius:5px;overflow:hidden}
+.funnel .fs .fill{height:100%;background:linear-gradient(90deg,var(--red),var(--gold))}
+.foot{font-size:11.5px;color:#8b817a;padding:18px 16px 8px;line-height:1.5}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#111;color:#fff;padding:10px 14px;border-radius:10px;font-size:13px;z-index:50;max-width:90%;display:none}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<div class="toast" id="toast"></div>
+<script>
+/* ============ DADOS DO CARDÁPIO — só o que a casa MEDIU; preço = TBD ============ */
+const FONTE_CARDAPIO = "Itens tirados das legendas de 466 posts do @pop_lanchesjti (inventário ZELES, 20/09/2026). Preço, foto e tamanhos: TBD até a tabela do balcão.";
+const CATS = [
+  {id:"lanches", nome:"Lanches", ic:"🍔"},
+  {id:"pizzas",  nome:"Pizzas",  ic:"🍕"},
+  {id:"porcoes", nome:"Porções", ic:"🍟"},
+  {id:"combos",  nome:"Combos",  ic:"🥤"},
+  {id:"acai",    nome:"Açaí",    ic:"🍧"},
+  {id:"bebidas", nome:"Bebidas", ic:"🧃"}
+];
+const SABORES = ["Frango","Calabresa","Mussarela","Catupiry","Presunto","Mineira"];
+const ITENS = [
+  {id:"xtudo", cat:"lanches", nome:"X-Tudo", desc:"O carro-chefe: 278 menções nas legendas. Ingredientes: TBD.", ic:"🍔", tipo:"lanche"},
+  {id:"lanches-tbd", cat:"lanches", nome:"Demais lanches", desc:"Entram quando chegar a tabela do balcão.", ic:"🥪", tbdOnly:true},
+  {id:"pizza-g", cat:"pizzas", nome:"Pizza Grande", desc:"1 ou 2 sabores (meia a meia). Sabores das legendas: " + SABORES.join(", ") + ".", ic:"🍕", tipo:"pizza"},
+  {id:"pizza-outros", cat:"pizzas", nome:"Outros tamanhos", desc:"Média, broto ou família: TBD.", ic:"🍕", tbdOnly:true},
+  {id:"batata-g", cat:"porcoes", nome:"Batata Grande", desc:"273 menções nas legendas.", ic:"🍟", tipo:"simples"},
+  {id:"combo", cat:"combos", nome:"Combo com Sukita", desc:"A Sukita é a bebida do combo (133 menções). Composição: TBD.", ic:"🥤", tipo:"simples"},
+  {id:"acai", cat:"acai", nome:"Açaí", desc:"Aparece nas promoções de 2026. Tamanhos e complementos: TBD.", ic:"🍧", tipo:"simples"},
+  {id:"sukita", cat:"bebidas", nome:"Sukita", desc:"Tamanho: TBD.", ic:"🧃", tipo:"simples"},
+  {id:"bebidas-tbd", cat:"bebidas", nome:"Demais bebidas", desc:"Refrigerantes e sucos: TBD.", ic:"🥤", tbdOnly:true}
+];
+/* bairros reais de Jataí (censo do mercado local ZELES, 20/09/2026); taxa e tempo = TBD */
+const BAIRROS = ["Vila Fátima","Centro","Setor Samuel Graham","Setor Santa Maria","Setor Parque Brito","Residencial Granvile","Residencial Vida Habitat"];
+const FORA_DO_RAIO = "Outro bairro (fora do raio — exemplo)";
+
+/* ============ ESTADO ============ */
+const S = {
+  view:"loja", itemAberto:null, cat:"lanches",
+  lojaAberta:true, pausada:false,
+  esgotado:{acai:true},           // exemplo de item esgotado: o Moisés liga/desliga na Gestão
+  carrinho:[], pagamento:"pix", bairro:BAIRROS[0],
+  pedidos:[], seq:0, periodo:"30"
+};
+const params = new URLSearchParams(location.search);
+if (params.has("pausada")) S.pausada = true;
+if (params.has("demo")) {
+  S.carrinho = [
+    {id:"pizza-g", nome:"Pizza Grande", det:"Meia Calabresa / meia Frango · borda: TBD", qtd:1},
+    {id:"xtudo", nome:"X-Tudo", det:"Obs.: sem cebola", qtd:2},
+    {id:"sukita", nome:"Sukita", det:"", qtd:1}
+  ];
+  S.pedidos.push(novoPedido("pago", S.carrinho, "Vila Fátima", "pix"));
+  S.pedidos.push(novoPedido("cozinha", [{nome:"Batata Grande",qtd:1,det:""},{nome:"X-Tudo",qtd:1,det:""}], "Setor Samuel Graham", "credito"));
+}
+function novoPedido(estado, itens, bairro, pag){
+  S.seq++;
+  const agora = new Date();
+  const hh = String(agora.getHours()).padStart(2,"0"), mm = String(agora.getMinutes()).padStart(2,"0");
+  const hist = {aguardando:hh+":"+mm};
+  const ordem = ["aguardando","pago","aceito","cozinha","saiu","entregue"];
+  for (let i=1;i<=ordem.indexOf(estado);i++) hist[ordem[i]] = hh+":"+mm;
+  return {num:"POP-" + String(S.seq).padStart(4,"0"), estado, itens:itens.map(x=>({...x})), bairro, pag, hist, impresso:estado==="cozinha"||estado==="saiu"||estado==="entregue"};
+}
+
+/* ============ UTIL ============ */
+const $ = s => document.querySelector(s);
+const app = $("#app");
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+const brl = v => "R$ " + v.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
+const TBD = '<span class="tbd">TBD</span>';
+const EX = '<span class="ex">EXEMPLO</span>';
+function toast(t){ const el=$("#toast"); el.textContent=t; el.style.display="block"; clearTimeout(toast._t); toast._t=setTimeout(()=>el.style.display="none",2600); }
+function ir(v){ location.hash = v; }
+function qtdCarrinho(){ return S.carrinho.reduce((a,x)=>a+x.qtd,0); }
+function hhmm(){ const d=new Date(); return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0"); }
+
+function strip(){
+  const g = S.view==="gestao";
+  return `<div class="demo-strip"><span><b>EMBRIÃO</b> · demonstração da ZELES · nada é cobrado</span>
+    <div class="switch"><button class="${g?"":"on"}" onclick="ir('loja')">Cliente</button><button class="${g?"on":""}" onclick="ir('gestao')">Gestão</button></div></div>`;
+}
+
+/* ============ TELA: LOJA ============ */
+function telaLoja(){
+  const aberto = S.lojaAberta && !S.pausada;
+  let h = strip();
+  h += `<div class="hero"><div class="brand"><div class="logo">POP</div><div><h1>POP Lanches e Pizzas</h1>
+    <small>R. Riachuelo · Vila Fátima · Jataí/GO</small></div></div>
+    <div class="status-row">
+      ${S.pausada ? '<span class="pill paused">⏸ Pausada agora</span>' : aberto ? '<span class="pill open">● Aberta agora</span>' : '<span class="pill paused">Fechada · abre às '+TBD+'</span>'}
+      <span class="pill">Horário: ${TBD}</span>
+      <span class="pill">Entrega própria · taxa ${TBD}</span>
+      <span class="pill">Pix ou cartão no site</span>
+    </div></div>`;
+  if (S.pausada) h += `<div class="banner paused"><b>A loja pausou os pedidos por alguns minutos</b> (pico na cozinha). Dá pra olhar o cardápio; o botão de pagar volta sozinho quando o Moisés reabrir.</div>`;
+  h += `<div class="banner">🧪 <b>Como ler este embrião:</b> os itens são os que aparecem no Instagram da POP. Onde está ${TBD} é dado que ainda vem do Moisés (preço, foto, horário). O pagamento é <b>simulado</b>.</div>`;
+  h += `<nav class="cats" id="cats">${CATS.map(c=>`<button class="cat ${S.cat===c.id?"on":""}" onclick="pularCat('${c.id}')">${c.ic} ${c.nome}</button>`).join("")}</nav>`;
+  for (const c of CATS){
+    const itens = ITENS.filter(i=>i.cat===c.id);
+    h += `<section class="cat-sec" id="sec-${c.id}"><h2>${c.ic} ${c.nome} <small>${itens.filter(i=>!i.tbdOnly).length} item(ns) confirmado(s)</small></h2>`;
+    for (const it of itens){
+      const esg = S.esgotado[it.id];
+      if (it.tbdOnly){
+        h += `<div class="item" style="border-style:dashed;background:#fbf8f5"><div class="thumb" style="background:#efe7df">${it.ic}<span>foto ${"TBD"}</span></div>
+          <div class="txt"><h3>${esc(it.nome)} ${TBD}</h3><p>${esc(it.desc)}</p></div></div>`;
+      } else {
+        h += `<button class="item" ${esg?"disabled":""} onclick="ir('produto-${it.id}')"><div class="thumb">${it.ic}<span>foto real TBD</span></div>
+          <div class="txt"><h3>${esc(it.nome)}${esg?'<span class="tag-esg">ESGOTADO HOJE</span>':""}</h3><p>${esc(it.desc)}</p>
+          <div class="price">R$ —,— ${TBD}</div></div></button>`;
+      }
+    }
+    h += `</section>`;
+  }
+  h += `<p class="fonte">${esc(FONTE_CARDAPIO)}</p>`;
+  if (qtdCarrinho()) h += `<button class="cartbar" onclick="ir('carrinho')"><span><span class="n">${qtdCarrinho()}</span>Ver carrinho</span><span>R$ ${"—,—"} ›</span></button>`;
+  return h;
+}
+function pularCat(id){ S.cat=id; const el=document.getElementById("sec-"+id); if(el){ window.scrollTo({top:el.offsetTop-56,behavior:"smooth"}); } document.querySelectorAll(".cat").forEach(b=>b.classList.toggle("on", b.textContent.includes(CATS.find(c=>c.id===id).nome))); }
+
+/* ============ TELA: PRODUTO (montagem com regra escrita) ============ */
+let montagem = {};
+function telaProduto(id){
+  const it = ITENS.find(i=>i.id===id);
+  if (!it) return telaLoja();
+  if (montagem.id!==id) montagem = {id, sabores:it.tipo==="pizza"?["Calabresa"]:[], qtd:1, obs:"", tirar:[]};
+  let h = `<div class="top"><button class="back" onclick="ir('loja')">‹</button><h2>${esc(it.nome)}</h2></div>`;
+  h += `<div style="height:170px;background:linear-gradient(135deg,#fde2d6,#f3b79d);display:grid;place-items:center;font-size:84px;position:relative">${it.ic}
+        <span style="position:absolute;bottom:8px;right:10px;font-size:11px;font-weight:800;color:#7a4a3a;background:rgba(255,255,255,.7);border-radius:6px;padding:2px 6px">foto real da POP: TBD</span></div>`;
+  h += `<div class="pad"><p style="margin:0 0 12px;color:var(--ink2)">${esc(it.desc)}</p>`;
+  if (it.tipo==="pizza"){
+    h += `<div class="card"><h3>Tamanho <span class="rule">obrigatório · 1</span></h3>
+      <label class="opt"><span>Grande</span><input type="radio" checked name="tam"></label>
+      <label class="opt dis"><span>Média / broto / família ${TBD}</span><input type="radio" disabled name="tam"></label></div>`;
+    h += `<div class="card"><h3>Sabores <span class="rule">1 a 2 · meia a meia</span></h3>
+      ${SABORES.map(s=>`<label class="opt"><span>${s}</span><input type="checkbox" ${montagem.sabores.includes(s)?"checked":""} onchange="togSabor('${s}',this)"></label>`).join("")}
+      <p class="note">Com 2 sabores, o preço segue a regra da casa (o maior ou a média): ${TBD}</p></div>`;
+    h += `<div class="card"><h3>Borda <span class="rule">opcional · até 1</span></h3>
+      <label class="opt dis"><span>Sem borda</span><input type="radio" checked disabled></label>
+      <label class="opt dis"><span>Borda recheada? ${TBD}</span><input type="radio" disabled></label></div>`;
+  }
+  if (it.tipo==="lanche"){
+    h += `<div class="card"><h3>Tirar algum ingrediente? <span class="rule">opcional</span></h3>
+      ${["cebola","tomate","alface","milho"].map(s=>`<label class="opt"><span>Sem ${s}</span><input type="checkbox" onchange="togTirar('${s}',this)"></label>`).join("")}
+      <p class="note">Lista real de ingredientes do X-Tudo: ${TBD}. Os "sem" acima são só o formato.</p></div>`;
+    h += `<div class="card"><h3>Adicionais <span class="rule">até N · preço por adicional</span></h3>
+      <div class="opt dis"><span>Adicionais e preços ${TBD}</span></div></div>`;
+  }
+  h += `<div class="card"><h3>Observação</h3><textarea placeholder="Ex.: caprichar no molho" oninput="montagem.obs=this.value">${esc(montagem.obs)}</textarea></div>`;
+  h += `<div class="card" style="display:flex;justify-content:space-between;align-items:center"><div class="qty">
+      <button onclick="montagem.qtd=Math.max(1,montagem.qtd-1);render()">−</button><b>${montagem.qtd}</b><button onclick="montagem.qtd++;render()">+</button></div>
+      <div style="font-weight:800">R$ —,— ${TBD}</div></div>`;
+  h += `<button class="big" onclick="addCarrinho()">Adicionar ao carrinho</button></div>`;
+  return h;
+}
+function togSabor(s, el){
+  const a = montagem.sabores;
+  if (el.checked){ if (a.length>=2){ el.checked=false; toast("Pizza aceita no máximo 2 sabores (meia a meia)."); return; } a.push(s); }
+  else { const i=a.indexOf(s); if(i>=0) a.splice(i,1); }
+}
+function togTirar(s, el){ const a=montagem.tirar; if(el.checked) a.push(s); else a.splice(a.indexOf(s),1); }
+function addCarrinho(){
+  const it = ITENS.find(i=>i.id===montagem.id);
+  if (it.tipo==="pizza" && montagem.sabores.length===0){ toast("Escolha pelo menos 1 sabor."); return; }
+  let det = [];
+  if (it.tipo==="pizza") det.push(montagem.sabores.length===2 ? "Meia "+montagem.sabores[0]+" / meia "+montagem.sabores[1] : montagem.sabores[0]);
+  if (montagem.tirar.length) det.push("sem "+montagem.tirar.join(", "));
+  if (montagem.obs) det.push("Obs.: "+montagem.obs);
+  S.carrinho.push({id:it.id, nome:it.nome, det:det.join(" · "), qtd:montagem.qtd});
+  montagem = {};
+  toast("Adicionado ao carrinho.");
+  ir("loja");
+}
+
+/* ============ TELA: CARRINHO ============ */
+function telaCarrinho(){
+  let h = `<div class="top"><button class="back" onclick="ir('loja')">‹</button><h2>Seu carrinho</h2></div><div class="pad">`;
+  if (!S.carrinho.length) return h + `<div class="card">Carrinho vazio.</div><button class="big" onclick="ir('loja')">Ver o cardápio</button></div>`;
+  h += `<div class="card">${S.carrinho.map((x,i)=>`<div class="line-item"><div class="d"><b>${x.qtd}× ${esc(x.nome)}</b>${x.det?`<small>${esc(x.det)}</small>`:""}</div>
+      <div class="qty"><button onclick="mudaQtd(${i},-1)">−</button><button onclick="mudaQtd(${i},1)">+</button></div></div>`).join("")}</div>`;
+  h += `<div class="card"><h3>Entrega</h3><label class="f">Bairro (confere o raio antes de pagar)</label>
+      <select onchange="S.bairro=this.value;render()">${[...BAIRROS,FORA_DO_RAIO].map(b=>`<option ${S.bairro===b?"selected":""}>${esc(b)}</option>`).join("")}</select>
+      <p class="note">${S.bairro===FORA_DO_RAIO ? "⚠ Fora do raio: o site avisa AQUI, antes do pagamento — nunca depois." : "Taxa deste bairro: "+TBD+" · tempo estimado: "+TBD}</p></div>`;
+  h += `<div class="card"><div class="row"><span>Itens</span><span>R$ —,— ${TBD}</span></div><div class="row"><span>Taxa de entrega</span><span>${TBD}</span></div>
+      <div class="row tot"><span>Total</span><span>R$ —,— ${TBD}</span></div>
+      <p class="note">O total é <b>recalculado no servidor</b> da ZELES na hora de pagar — o navegador do cliente não decide preço.</p></div>`;
+  h += `<button class="big" onclick="ir('checkout')">Continuar · sem cadastro</button></div>`;
+  return h;
+}
+function mudaQtd(i,d){ S.carrinho[i].qtd+=d; if(S.carrinho[i].qtd<=0) S.carrinho.splice(i,1); render(); }
+
+/* ============ TELA: CHECKOUT (as travas ANTES de cobrar) ============ */
+function travas(){
+  const itensEsg = S.carrinho.filter(x=>S.esgotado[x.id]);
+  return [
+    {ok:S.lojaAberta, t:"Loja aberta no horário"},
+    {ok:!S.pausada, t:"Loja não está pausada (pico na cozinha)"},
+    {ok:itensEsg.length===0, t: itensEsg.length ? "Item esgotado no carrinho: "+itensEsg.map(x=>x.nome).join(", ") : "Nenhum item esgotado"},
+    {ok:S.bairro!==FORA_DO_RAIO, t: S.bairro!==FORA_DO_RAIO ? "Bairro dentro do raio de entrega" : "Bairro fora do raio"},
+    {ok:true, t:"Preço recalculado no servidor"}
+  ];
+}
+function telaCheckout(){
+  const tv = travas(), liberado = tv.every(x=>x.ok);
+  let h = `<div class="top"><button class="back" onclick="ir('carrinho')">‹</button><h2>Finalizar pedido</h2></div><div class="pad">`;
+  h += `<div class="card"><h3>Seus dados <span class="rule">sem senha · a conta é o telefone</span></h3>
+      <label class="f">Nome</label><input type="text" placeholder="Seu nome" autocomplete="off">
+      <label class="f">WhatsApp</label><input type="tel" placeholder="(64) 9 ____-____" autocomplete="off">
+      <label class="f">Endereço</label><input type="text" placeholder="Rua, número, referência" autocomplete="off">
+      <p class="note">Bairro: <b>${esc(S.bairro)}</b> · demonstração: nada do que se digita aqui é salvo ou enviado.</p></div>`;
+  h += `<div class="card"><h3>Pagamento <span class="rule">antes do preparo</span></h3><div class="pay">
+      <button class="${S.pagamento==="pix"?"on":""}" onclick="S.pagamento='pix';render()">Pix<small>QR ou copia-e-cola</small></button>
+      <button class="${S.pagamento==="credito"?"on":""}" onclick="S.pagamento='credito';render()">Cartão de crédito<small>à vista · Mercado Pago</small></button></div>
+      <p class="note">Motoboy só entrega: sem troco, sem maquininha, sem dinheiro na mochila.</p></div>`;
+  h += `<div class="card"><h3>O site confere antes de cobrar</h3><ul class="checks">${tv.map(x=>`<li class="${x.ok?"":"no"}"><b>${x.ok?"✓":"!"}</b><span>${esc(x.t)}</span></li>`).join("")}</ul>
+      ${liberado?"":`<p class="note" style="color:var(--red-d)"><b>Bloqueado antes de cobrar</b> — é isso que evita cobrar um pedido que a cozinha não vai fazer.</p>`}</div>`;
+  h += `<button class="big" ${liberado?"":"disabled"} onclick="pagar()">${S.pagamento==="pix"?"Gerar Pix":"Pagar com cartão"} · R$ —,— ${liberado?"":""}</button></div>`;
+  return h;
+}
+function pagar(){
+  if (!travas().every(x=>x.ok)) return;
+  const p = novoPedido("aguardando", S.carrinho, S.bairro, S.pagamento);
+  S.pedidos.unshift(p); S.atual = p.num;
+  ir(S.pagamento==="pix" ? "pix" : "cartao");
+}
+function pedidoAtual(){ return S.pedidos.find(p=>p.num===S.atual) || S.pedidos[0]; }
+
+/* ============ TELA: PIX / CARTÃO (SIMULADOS) ============ */
+function qrSvg(seed){
+  let x = seed, r = () => (x = (x*1103515245+12345) & 0x7fffffff) / 0x7fffffff;
+  const n=25, c=[];
+  for (let i=0;i<n;i++) for (let j=0;j<n;j++){
+    const fin = (i<7&&j<7)||(i<7&&j>n-8)||(i>n-8&&j<7);
+    let on;
+    if (fin){ const a=i<7?i:i-(n-7), b=j<7?j:j-(n-7); on = a===0||a===6||b===0||b===6||(a>=2&&a<=4&&b>=2&&b<=4); }
+    else on = r()>0.52;
+    if (on) c.push(`<rect x="${j}" y="${i}" width="1" height="1"/>`);
+  }
+  return `<svg class="qr" viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges"><g fill="#111">${c.join("")}</g></svg>`;
+}
+function telaPix(){
+  const p = pedidoAtual() || novoPedido("aguardando", S.carrinho, S.bairro, "pix");
+  if (!S.pedidos.includes(p)) { S.pedidos.unshift(p); S.atual=p.num; }
+  let h = `<div class="top"><button class="back" onclick="ir('checkout')">‹</button><h2>Pague com Pix</h2></div><div class="pad">`;
+  h += `<div class="card" style="text-align:center"><h3 style="justify-content:center">Pedido ${p.num}</h3>
+      <div class="sim">${qrSvg(p.num.charCodeAt(7)*7919)}</div>
+      <div class="copy">SIMULACAO-ZELES-NAO-E-UM-PIX-${p.num}</div>
+      <p class="note">Expira em <b>10:00</b> (${TBD} — prazo real a combinar). Pix vencido: o site gera outro sem refazer o pedido.</p></div>`;
+  h += `<div class="card"><p class="note" style="margin:0">Na versão real, o QR vem do Mercado Pago e a <b>confirmação chega sozinha</b> (aviso assinado + conferência a cada minuto). Aqui, o botão faz o papel do banco:</p></div>`;
+  h += `<button class="big green" onclick="confirmaPagamento()">▶ Simular: cliente pagou o Pix</button></div>`;
+  return h;
+}
+function telaCartao(){
+  const p = pedidoAtual() || novoPedido("aguardando", S.carrinho, S.bairro, "credito");
+  if (!S.pedidos.includes(p)) { S.pedidos.unshift(p); S.atual=p.num; }
+  let h = `<div class="top"><button class="back" onclick="ir('checkout')">‹</button><h2>Cartão de crédito</h2></div><div class="pad">`;
+  h += `<div class="card sim"><h3>Pedido ${p.num} <span class="rule">Mercado Pago</span></h3>
+      <div class="fake">•••• •••• •••• ••••</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div class="fake">MM/AA</div><div class="fake">CVV</div></div>
+      <div class="fake">Nome impresso no cartão</div></div>`;
+  h += `<div class="card"><p class="note" style="margin:0">Campos <b>desligados de propósito</b>. Na versão real, o formulário é o do próprio Mercado Pago dentro do site: o número do cartão nunca passa pelo servidor da POP. Crédito à vista, sem parcelar lanche.</p></div>`;
+  h += `<button class="big green" onclick="confirmaPagamento()">▶ Simular: cartão aprovado</button>
+        <div style="height:8px"></div><button class="big alt" onclick="toast('Recusado: o cliente escolhe outro cartão ou volta pro Pix. Nada é cobrado.')">Simular: cartão recusado</button></div>`;
+  return h;
+}
+function confirmaPagamento(){
+  const p = pedidoAtual(); p.estado="pago"; p.hist.pago=hhmm();
+  S.carrinho=[]; toast("Pago! O painel do Moisés começou a tocar.");
+  ir("pedido");
+}
+
+/* ============ TELA: MEU PEDIDO (estados separados) ============ */
+const ESTADOS = [
+  {k:"aguardando", t:"Aguardando pagamento", s:"Pix gerado ou cartão em análise."},
+  {k:"pago", t:"Pago", s:"O painel da POP toca até alguém aceitar. Prazo de aceite: TBD."},
+  {k:"aceito", t:"Aceito pela POP", s:"Só aqui o pedido é impresso na cozinha."},
+  {k:"cozinha", t:"Na cozinha", s:"Preparando."},
+  {k:"saiu", t:"Saiu pra entrega", s:"O motoboy só entrega — já está pago."},
+  {k:"entregue", t:"Entregue", s:"Confirmação no celular do motoboy (prova contra contestação)."}
+];
+function telaPedido(){
+  const p = pedidoAtual();
+  if (!p) return telaLoja();
+  const idx = p.estado==="cancelado" ? -1 : ESTADOS.findIndex(e=>e.k===p.estado);
+  let h = `<div class="top"><button class="back" onclick="ir('loja')">‹</button><h2>Meu pedido ${p.num}</h2></div><div class="pad">`;
+  h += `<div class="card"><p class="note" style="margin:0 0 10px">🔒 Esta página só abre com a chave do link (trocar o número na barra não mostra pedido de outra pessoa).</p>`;
+  if (p.estado==="cancelado") h += `<p style="color:var(--red-d);font-weight:800">Pedido cancelado e estornado. Pix volta em minutos; no crédito cai na fatura, dias depois.</p>`;
+  h += `<ul class="steps">${ESTADOS.map((e,i)=>`<li class="${i<idx?"done":i===idx?"now":"fut"}"><div class="dot">${i<idx?"✓":i+1}</div><div><div class="t">${e.t}${p.hist[e.k]?` <small style="font-weight:500;color:var(--ink2)">· ${p.hist[e.k]}</small>`:""}</div><div class="s">${e.s}</div></div></li>`).join("")}</ul></div>`;
+  h += `<div class="card"><h3>Itens</h3>${p.itens.map(x=>`<div class="line-item"><div class="d"><b>${x.qtd}× ${esc(x.nome)}</b>${x.det?`<small>${esc(x.det)}</small>`:""}</div></div>`).join("")}
+      <div class="row tot"><span>Total (${p.pag==="pix"?"Pix":"crédito"})</span><span>R$ —,— ${TBD}</span></div></div>`;
+  h += `<button class="big" onclick="ir('gestao')">Ver como o Moisés recebe este pedido ›</button></div>`;
+  return h;
+}
+
+/* ============ DADOS DE EXEMPLO DA GESTÃO (semente fixa; FICTÍCIOS) ============ */
+function gerarExemplo(){
+  let x = 20260925; const r = () => (x = (x*1664525+1013904223) >>> 0) / 4294967296;
+  const pesoBairro = [0.30,0.16,0.14,0.12,0.11,0.09,0.08];
+  const tempoBase = [24,31,33,36,38,44,47];
+  const prods = [["X-Tudo",0.30],["Pizza Grande",0.27],["Batata Grande",0.17],["Combo com Sukita",0.12],["Açaí",0.08],["Sukita",0.06]];
+  const horas = [18,19,20,21,22,23,0,1,2];
+  const pesoHora = [0.05,0.12,0.18,0.19,0.16,0.12,0.09,0.06,0.03];
+  const pesoDia = [0.10,0.09,0.10,0.13,0.20,0.22,0.16]; // seg..dom
+  const pick = (w) => { let a=r(), s=0; for(let i=0;i<w.length;i++){ s+=w[i]; if(a<=s) return i; } return w.length-1; };
+  const out = [];
+  for (let d=0; d<30; d++){
+    const n = 14 + Math.floor(r()*12);
+    for (let k=0;k<n;k++){
+      const b = pick(pesoBairro), h = horas[pick(pesoHora)];
+      const itens = 1 + Math.floor(r()*3);
+      const top = prods[pick(prods.map(p=>p[1]))][0];
+      const valor = Math.round((28 + r()*52 + (itens-1)*14) * 100)/100;
+      const tAceite = 1 + Math.floor(r()*5), tCoz = 12 + Math.floor(r()*14), tRua = Math.max(8, tempoBase[b]-tCoz-tAceite + Math.floor(r()*10) - 3);
+      out.push({dia:d, dow:(d+3)%7, bairro:BAIRROS[b], hora:h, valor, top, itens, pag:r()<0.68?"pix":"credito",
+        cancel:r()<0.03, tAceite, tCoz, tRua, total:tAceite+tCoz+tRua, origem:["Instagram","Google","WhatsApp","Direto"][pick([0.41,0.24,0.22,0.13])]});
+    }
+  }
+  return out;
+}
+const EXEMPLO = gerarExemplo();
+
+/* ============ TELA: GESTÃO ============ */
+function telaGestao(){
+  const dias = +S.periodo;
+  const base = EXEMPLO.filter(o=>o.dia >= 30-dias);
+  const ok = base.filter(o=>!o.cancel);
+  const vendas = ok.reduce((a,o)=>a+o.valor,0);
+  const ticket = ok.length ? vendas/ok.length : 0;
+  const tMed = ok.length ? ok.reduce((a,o)=>a+o.total,0)/ok.length : 0;
+  const pix = ok.filter(o=>o.pag==="pix").length;
+  const canc = base.length - ok.length;
+  let h = strip();
+  h += `<div class="g-head"><h1>Painel da POP</h1><p>O que o Moisés vê: operação de agora em cima, os números embaixo.</p></div>`;
+  /* operação */
+  const vivos = S.pedidos.filter(p=>p.estado!=="entregue" && p.estado!=="cancelado");
+  h += `<div class="g-sec"><h2>Pedidos agora <small>${vivos.length} em andamento</small></h2>`;
+  if (!S.pedidos.length) h += `<div class="card" style="font-size:13px;color:var(--ink2)">Nenhum pedido ainda. Faça um pedido na aba <b>Cliente</b> e ele aparece aqui tocando.</div>`;
+  for (const p of S.pedidos){
+    const acts = {
+      aguardando:`<span class="note">esperando o cliente pagar…</span>`,
+      pago:`<button class="ok" onclick="avanca('${p.num}','aceito')">Aceitar e imprimir</button><button class="x" onclick="cancela('${p.num}')">Recusar e estornar</button>`,
+      aceito:`<button onclick="avanca('${p.num}','cozinha')">Foi pra cozinha</button><button class="x" onclick="toast('Reimpressão marcada como 2ª via — a cozinha não faz em dobro.')">Reimprimir</button>`,
+      cozinha:`<button onclick="avanca('${p.num}','saiu')">Saiu pra entrega</button><button class="x" onclick="toast('Item em falta depois de pago: ligar e oferecer troca antes de estornar tudo.')">Faltou item</button>`,
+      saiu:`<button class="ok" onclick="avanca('${p.num}','entregue')">Entregue</button>`,
+      entregue:`<span class="note">concluído</span>`, cancelado:`<span class="note">estorno acompanhado até cair</span>`
+    }[p.estado];
+    h += `<div class="ord ${p.estado==="pago"?"ring":""}"><div class="h"><span>${p.num} <span class="st ${p.estado}">${ESTADOS.find(e=>e.k===p.estado)?.t || "Cancelado"}</span></span><span>R$ —,— ${TBD}</span></div>
+      <div class="m">${p.itens.map(x=>x.qtd+"× "+esc(x.nome)).join(" · ")}<br>${esc(p.bairro)} · ${p.pag==="pix"?"Pix":"Crédito"} · pago às ${p.hist.pago||"—"}${p.impresso?" · 🖨 impresso":""}</div>
+      <div class="acts">${acts}</div></div>`;
+  }
+  h += `</div>`;
+  h += `<div class="g-sec"><h2>Controles da loja</h2><div class="card">
+      <div class="ctl"><span><b>Pausar pedidos</b><br><small style="color:var(--ink2)">pico na cozinha: o site para de cobrar</small></span><button class="tog red ${S.pausada?"on":""}" onclick="S.pausada=!S.pausada;render()"></button></div>
+      ${ITENS.filter(i=>!i.tbdOnly).map(i=>`<div class="ctl"><span>${i.ic} ${esc(i.nome)} ${S.esgotado[i.id]?'<span class="tag-esg">ESGOTADO</span>':""}</span><button class="tog ${S.esgotado[i.id]?"":"on"}" title="disponível" onclick="S.esgotado['${i.id}']=!S.esgotado['${i.id}'];render()"></button></div>`).join("")}
+      <p class="note">Verde = disponível. Desligou aqui, some do botão de comprar na hora.</p></div></div>`;
+  /* números */
+  h += `<div class="ex-banner">📊 <b>Daqui pra baixo, tudo é EXEMPLO FICTÍCIO</b> — mostra a tela, não a POP. Os números de verdade saem sozinhos dos pedidos pagos no site.</div>`;
+  h += `<div class="chips">${[["1","Hoje"],["7","7 dias"],["30","30 dias"]].map(([v,t])=>`<button class="${S.periodo===v?"on":""}" onclick="S.periodo='${v}';render()">${t}</button>`).join("")}</div>`;
+  h += `<div class="kpis">
+      <div class="kpi"><div class="l">Vendas ${EX}</div><div class="v">${brl(vendas)}</div><div class="s">${ok.length} pedidos pagos</div></div>
+      <div class="kpi"><div class="l">Ticket médio ${EX}</div><div class="v">${brl(ticket)}</div><div class="s">vendas ÷ pedidos pagos</div></div>
+      <div class="kpi"><div class="l">Tempo médio ${EX}</div><div class="v">${Math.round(tMed)} min</div><div class="s">do pago ao entregue</div></div>
+      <div class="kpi"><div class="l">Pix × crédito ${EX}</div><div class="v">${ok.length?Math.round(pix/ok.length*100):0}% Pix</div><div class="s">${canc} cancelado(s)/estornado(s)</div></div>
+    </div>`;
+  /* bairro */
+  const porB = BAIRROS.map(b=>{ const l=ok.filter(o=>o.bairro===b); const v=l.reduce((a,o)=>a+o.valor,0);
+    return {b, n:l.length, v, tk:l.length?v/l.length:0, t:l.length?l.reduce((a,o)=>a+o.total,0)/l.length:0}; }).sort((a,c)=>c.v-a.v);
+  h += `<div class="g-sec"><h2>Por bairro ${EX}</h2><div class="card" style="padding:8px 10px"><table class="t"><tr><th>Bairro</th><th class="r">Ped.</th><th class="r">Vendas</th><th class="r">Ticket</th><th class="r">Tempo</th></tr>
+      ${porB.map(x=>`<tr><td>${esc(x.b)}</td><td class="r">${x.n}</td><td class="r">${brl(x.v).replace("R$ ","")}</td><td class="r">${x.tk.toFixed(2).replace(".",",")}</td><td class="r">${Math.round(x.t)}′</td></tr>`).join("")}
+      </table><p class="note">Bairro longe = tempo maior: é daqui que sai a taxa por bairro e o raio de entrega.</p></div></div>`;
+  /* etapas */
+  const avg = k => ok.length ? ok.reduce((a,o)=>a+o[k],0)/ok.length : 0;
+  const et = [["Pago → aceito", avg("tAceite")],["Aceito → saiu", avg("tCoz")],["Saiu → entregue", avg("tRua")]];
+  const mx = Math.max(...et.map(e=>e[1]));
+  h += `<div class="g-sec"><h2>Onde o tempo vai ${EX}</h2><div class="card bars">${et.map(e=>`<div class="b"><span class="nm">${e[0]}</span><div class="track"><div class="fill" style="width:${e[1]/mx*100}%;background:var(--gold)"></div></div><span class="val">${Math.round(e[1])} min</span></div>`).join("")}
+      <p class="note">Separa o que é cozinha do que é rua: se o atraso é na rua, é motoboy; se é no aceite, é gente no balcão.</p></div></div>`;
+  /* mais vendidos */
+  const cont = {}; ok.forEach(o=>cont[o.top]=(cont[o.top]||0)+o.itens);
+  const mv = Object.entries(cont).sort((a,b)=>b[1]-a[1]); const mmax = mv.length?mv[0][1]:1;
+  h += `<div class="g-sec"><h2>Mais vendidos ${EX}</h2><div class="card bars">${mv.map(([n,v])=>`<div class="b"><span class="nm">${esc(n)}</span><div class="track"><div class="fill" style="width:${v/mmax*100}%"></div></div><span class="val">${v}</span></div>`).join("")}</div></div>`;
+  /* horário */
+  const horas = [18,19,20,21,22,23,0,1,2]; const ch = horas.map(hh=>ok.filter(o=>o.hora===hh).length); const cmax = Math.max(1,...ch);
+  h += `<div class="g-sec"><h2>Pedidos por horário ${EX}</h2><div class="card"><div class="vbars">${horas.map((hh,i)=>`<div class="c ${ch[i]===cmax?"pk":""}"><em>${ch[i]}</em><i style="height:${ch[i]/cmax*88}%"></i><span>${String(hh).padStart(2,"0")}h</span></div>`).join("")}</div>
+      <p class="note">O pico diz quantos motoboys escalar e quando pausar. O horário real da POP: ${TBD}.</p></div></div>`;
+  /* dia da semana */
+  const dn = ["Seg","Ter","Qua","Qui","Sex","Sáb","Dom"]; const cd = dn.map((_,i)=>ok.filter(o=>o.dow===i).reduce((a,o)=>a+o.valor,0)); const dmax=Math.max(1,...cd);
+  h += `<div class="g-sec"><h2>Vendas por dia da semana ${EX}</h2><div class="card"><div class="vbars">${dn.map((d,i)=>`<div class="c ${cd[i]===dmax?"pk":""}"><em>${Math.round(cd[i]/1000*10)/10}k</em><i style="height:${cd[i]/dmax*88}%"></i><span>${d}</span></div>`).join("")}</div></div></div>`;
+  /* funil + origem (o que a casa já mede na loja da ālea) */
+  const pagos = ok.length, fun = [["Entrou no site", Math.round(pagos*6.1)],["Abriu um item", Math.round(pagos*3.4)],["Pôs no carrinho", Math.round(pagos*1.9)],["Foi pagar", Math.round(pagos*1.25)],["Pagou", pagos]];
+  h += `<div class="g-sec"><h2>Funil do site ${EX} <small>mesma medida da loja da ālea</small></h2><div class="card funnel">${fun.map(f=>`<div class="fs"><span>${f[0]}</span><div class="track"><div class="fill" style="width:${f[1]/fun[0][1]*100}%"></div></div><span class="val" style="text-align:right;font-weight:700">${f[1]}</span></div>`).join("")}
+      <p class="note">Mostra onde o cliente desiste: no cardápio, no carrinho ou na hora de pagar.</p></div></div>`;
+  const org = {}; ok.forEach(o=>org[o.origem]=(org[o.origem]||0)+1); const oe = Object.entries(org).sort((a,b)=>b[1]-a[1]);
+  h += `<div class="g-sec"><h2>De onde veio o pedido ${EX}</h2><div class="card bars">${oe.map(([n,v])=>`<div class="b"><span class="nm">${n}</span><div class="track"><div class="fill" style="width:${v/oe[0][1]*100}%;background:var(--green)"></div></div><span class="val">${Math.round(v/pagos*100)}%</span></div>`).join("")}
+      <p class="note">Pedido que veio de anúncio do Google volta pro Google como venda — é assim que se sabe se o anúncio paga.</p></div></div>`;
+  h += `<div class="foot"><b>De onde viria cada número na versão real:</b> vendas, ticket, bairro, horário e mais vendidos = pedidos pagos no banco da loja; tempos = carimbo de cada troca de estado (pago, aceito, saiu, entregue); funil e origem = o medidor de visitas que a ZELES já usa na loja da ālea. Nenhum número acima é da POP.<br><br>ZELES · Inteligência aplicada · embrião v1 · 25/09/2026</div>`;
+  return h;
+}
+function avanca(num, est){
+  const p = S.pedidos.find(x=>x.num===num); p.estado = est; p.hist[est]=hhmm();
+  if (est==="aceito"){ p.impresso = true; toast("Aceito: comanda impressa na cozinha (simulado)."); }
+  render();
+}
+function cancela(num){ const p=S.pedidos.find(x=>x.num===num); p.estado="cancelado"; toast("Recusado: estorno disparado. Pix volta em minutos; crédito, dias depois."); render(); }
+
+/* ============ ROTEADOR ============ */
+function render(){
+  const h = (location.hash||"#loja").slice(1);
+  let html;
+  if (h.startsWith("produto-")) { S.view="produto"; html = telaProduto(h.slice(8)); }
+  else {
+    S.view = h;
+    html = ({loja:telaLoja, carrinho:telaCarrinho, checkout:telaCheckout, pix:telaPix, cartao:telaCartao, pedido:telaPedido, gestao:telaGestao}[h] || telaLoja)();
+  }
+  app.innerHTML = html;
+}
+window.addEventListener("hashchange", ()=>{ render(); window.scrollTo(0,0); });
+render();
+</script>
+</body>
+</html>
