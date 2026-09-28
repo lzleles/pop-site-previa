@@ -4,10 +4,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
-<meta name="previa-commit" content="703c5db93cdd">
+<meta name="previa-commit" content="7bd4e1732069">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1a1414">
-<title>POP Lanches e Pizzas — prévia do app v13 (ZELES)</title>
+<title>POP Lanches e Pizzas — prévia do app v14 (ZELES)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;0,800;0,900;1,800;1,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -548,6 +548,10 @@ img.foto{width:100%;height:100%;object-fit:cover;display:block;border-radius:inh
 
 /* v12: etiqueta "obrigatorio" clean (audio 3350) - sem o preto forte, so o nome com sombreado leve, menor */
 .rule.req{background:transparent;color:var(--ink2);font-size:9.5px;font-weight:600;padding:1px 0;text-shadow:0 1px 2px rgba(0,0,0,.18);letter-spacing:.2px}
+
+/* v14: o bloco que falta fica com as letras vermelhas ate ser respondido (audios 3360/3361) */
+.bloco.faltou h3,.bloco.faltou h3 .rule,.bloco.faltou .opt span,.bloco.faltou .chipsx button{color:var(--red)}
+.bloco.faltou .opt input{border-color:var(--red)}
 </style>
 </head>
 <body>
@@ -1141,8 +1145,8 @@ function telaProduto(id){
   if (it.tipo==="pizza"){
     /* v4: o cardápio real tem UM tamanho (Grande, 8 pedaços) e UM preço pra todos os sabores; sem borda no print */
     const grupo = ITENS.filter(i=>i.cat==="pizzas");
-    h += `<div class="bloco"><h3>Tamanho <span class="rule">único no cardápio</span></h3><div class="tam-unico"><b>${PIZZA.tamanho}</b><span>${PIZZA.pedacos} pedaços</span><em>${brl(PIZZA.preco)}</em></div></div>`;
-    h += `<div class="bloco" id="bloco-sabor"><h3>Sabor <span class="rule">até ${PIZZA.max_sabores} · meia a meia</span></h3>
+    h += `<div class="bloco"><h3>Tamanho</h3><div class="tam-unico"><b>${PIZZA.tamanho}</b><span>${PIZZA.pedacos} pedaços</span><em>${brl(PIZZA.preco)}</em></div></div>`;
+    h += `<div class="bloco" id="bloco-sabor"><h3>Sabor <span class="rule req">obrigatório</span></h3>
       <div class="modo"><button class="${m.sabores.length===1?"on":""}" onclick="modoSabor(1)">1 sabor</button><button id="btn-meia" class="${m.sabores.length===2?"on":""}" onclick="modoSabor(2)">Meia a meia</button></div>`;
     if (m.sabores.length===2) h += `<div class="disco-mini"><span class="${gira?"gira":""}">${SV(discoSvg(m.sabores))}</span><p><b>Olha a sua pizza:</b> metade ${esc(item(m.sabores[0]).nome)}, metade ${esc(item(m.sabores[1]).nome)}.</p></div>`;
     if (m.sabores.length===2) h += `<div class="meias">${[0,1].map(k=>`<button class="${m.ativa===k?"on":""}" onclick="montagem.ativa=${k};render()"><small>${k?"◑ metade 2":"◐ metade 1"}</small>${esc(item(m.sabores[k]).nome)}</button>`).join("")}</div>
@@ -1151,19 +1155,19 @@ function telaProduto(id){
         return `<button class="${pos>=0?"on":""}" data-sabor="${s.id}" onclick="escolheSabor('${s.id}')">${SV(pzArte(s.id))}<span>${esc(s.nome)}${s.doce?'<br><small style="color:var(--ink2);font-weight:500">doce</small>':""}</span>${pos>=0&&m.sabores.length===2?`<span class="n">${pos+1}</span>`:""}</button>`; }).join("")}</div></div>`;
   }
   if (it.tipo==="lanche"){
-    h += `<div class="bloco"><h3>Turbine seu lanche <span class="rule">adicionais do cardápio · opcional</span></h3>
+    h += `<div class="bloco"><h3>Turbine seu lanche</h3>
       ${ADICIONAIS.map(a=>`<label class="opt"><span>${esc(a[1])}</span><span class="r">+ ${brl(a[2])}</span><input type="checkbox" data-adic="${a[0]}" ${m.add.includes(a[0])?"checked":""} onchange="togLista('add','${a[0]}',this)"></label>`).join("")}</div>`;
     const ing = ingredientes(it);
-    if (ing.length) h += `<div class="bloco" id="bloco-tirar">
+    if (ing.length) h += `<div class="bloco ${m.falta&&m.falta.tirar&&m.querTirar&&!m.tirar.length?"faltou":""}" id="bloco-tirar">
       <label class="opt quer-tirar" id="quer-tirar"><span>Deseja remover algum ingrediente?</span><input type="checkbox" ${m.querTirar?"checked":""} onchange="marcaTirar(this.checked)"></label>
       <div class="chipsx tirar-lista ${m.querTirar?"":"travada"}">${ing.map(s=>`<button class="${m.tirar.includes(s)?"on":""}" onclick="togTirar('${s.replace(/'/g,"")}')">Sem ${esc(s)}</button>`).join("")}</div></div>`;
-    h += `<div class="bloco" id="bloco-molho"><h3>Molho <span class="rule req">obrigatório</span></h3>
+    h += `<div class="bloco ${m.falta&&m.falta.molho&&!m.molhos.length?"faltou":""}" id="bloco-molho"><h3>Molho <span class="rule req">obrigatório</span></h3>
       ${MOLHOS.concat(["Sem molho"]).map(s=>`<label class="opt"><span>${s==="Sem molho"?"Não quero molho":esc(s)}</span><input type="checkbox" data-molho="${s}" ${m.molhos.includes(s)?"checked":""} onchange="togMolho('${s}')"></label>`).join("")}</div>`;
   }
   if (it.tipo==="variante"){
-    h += `<div class="bloco"><h3>Tamanho <span class="rule ${it.tams.length>1?"req":""}">${it.tams.length>1?"obrigatório":"único"}</span></h3><div class="segs" style="grid-template-columns:repeat(${it.tams.length},1fr)">
+    h += `<div class="bloco"><h3>Tamanho${it.tams.length>1?' <span class="rule req">obrigatório</span>':""}</h3><div class="segs" style="grid-template-columns:repeat(${it.tams.length},1fr)">
       ${it.tams.map((t,i)=>`<button class="${m.tamIx===i?"on":""}" data-tam="${i}" onclick="montagem.tamIx=${i};render()"><b>${esc(t.nome)}</b><em>${brl(t.preco)}</em></button>`).join("")}</div></div>`;
-    if (it.sabores) h += `<div class="bloco" id="bloco-sab"><h3>Sabor <span class="rule req">obrigatório</span></h3><div class="chipsx">
+    if (it.sabores) h += `<div class="bloco ${m.falta&&m.falta.sab&&!m.sabor?"faltou":""}" id="bloco-sab"><h3>Sabor <span class="rule req">obrigatório</span></h3><div class="chipsx">
       ${it.sabores.map(sb=>`<button class="${m.sabor===sb?"on":""}" data-sab="${esc(sb)}" onclick="montagem.sabor='${sb}';render()">${esc(sb)}</button>`).join("")}</div></div>`;
   }
   h += `<div class="bloco"><h3>Observação</h3><textarea placeholder="${it.cat==="combos"?"Ex.: qual refri lata (o cardápio não diz)":"Ex.: caprichar no molho, tocar o interfone"}" oninput="montagem.obs=this.value">${esc(m.obs)}</textarea></div></div>`;
@@ -1198,9 +1202,9 @@ function togMolho(s){ const m=montagem; let a=m.molhos; const i=a.indexOf(s);
   render(); }
 function addCarrinho(){
   const it = item(montagem.id), m = montagem;
-  if (it.tipo==="lanche" && m.querTirar && !m.tirar.length){  const b=$("#bloco-tirar"); if(b){ b.scrollIntoView({behavior:"smooth",block:"center"}); treme(b); } return; }
-  if (it.tipo==="lanche" && !m.molhos.length){  const b=$("#bloco-molho"); if(b){ b.scrollIntoView({behavior:"smooth",block:"center"}); treme(b); } return; }
-  if (it.tipo==="variante" && it.sabores && !m.sabor){ toast("Escolha o sabor."); const b=$("#bloco-sab"); if(b) b.scrollIntoView({behavior:"smooth",block:"center"}); return; }
+  if (it.tipo==="lanche" && m.querTirar && !m.tirar.length){  m.falta={...(m.falta||{}),tirar:1}; render(); const b=$("#bloco-tirar"); if(b){ b.scrollIntoView({behavior:"smooth",block:"center"}); treme(b); } return; }
+  if (it.tipo==="lanche" && !m.molhos.length){  m.falta={...(m.falta||{}),molho:1}; render(); const b=$("#bloco-molho"); if(b){ b.scrollIntoView({behavior:"smooth",block:"center"}); treme(b); } return; }
+  if (it.tipo==="variante" && it.sabores && !m.sabor){ m.falta={...(m.falta||{}),sab:1}; render(); const b=$("#bloco-sab"); if(b){ b.scrollIntoView({behavior:"smooth",block:"center"}); treme(b); } return; }
   let det = [], nome = it.nome;
   if (it.tipo==="pizza"){
     nome = "Pizza " + item(m.sabores[0]).nome + (m.sabores.length===2 ? " + " + item(m.sabores[1]).nome : "");
