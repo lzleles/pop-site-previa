@@ -1,85 +1,13 @@
 <!doctype html>
-<!--
-  APP DE PEDIDOS DO POP LANCHES E PIZZAS — v5_sem_rastreio (27/09/2026) · ZELES
 
-  O QUE MUDOU DA v4_cardapio_real E POR QUÊ (ordem do Lázaro, áudio 27/09/2026 14:16):
-    - SAIU o acompanhamento do entregador "ao vivo" (a moto animada andando na barra do pedido). Rastrear o
-      motoboy pelo site só funciona com a página aberta na tela do cliente, então não entrega o que promete.
-    - FICA a linha do tempo por ETAPA (Pago, Aceito, Cozinha, Saiu, Entregue) com a hora de cada uma: quem marca
-      é o POP no painel, não depende de GPS.
-    - IDEIA PRO FUTURO (não agora): rastreador físico na moto (GPS/bluetooth, tipo o da Shopee).
-    - Todo o resto é igual à v4.
-
-  (v4) APP DE PEDIDOS DO POP LANCHES E PIZZAS — v4_cardapio_real (27/09/2026) · ZELES
-  PRÉVIA. Não é produção. O CARDÁPIO agora é o REAL; taxas, tempos, destaques, pedidos de exemplo e Gestão seguem fictícios.
-
-  O QUE MUDOU DA v3_app_cassiano E POR QUÊ:
-    - POR QUÊ: a v3 era prévia de LAYOUT com cardápio inventado pela ZELES (43 itens). Chegaram 3 prints do cardápio
-      real do POP (story do Instagram de 31/12/2025) e o app passa a mostrar o que a loja vende, com o preço do balcão.
-    - FONTE ÚNICA: CARDAPIO_POP_2026-09-27.json (nesta pasta), transcrito dos 3 prints. O JSON é colado no bloco
-      CARDAPIO (entre os marcadores CARDAPIO_JSON_INICIO e _FIM) pelo montador
-      ZELES\01_scripts\montar_app_pop_v4_cardapio_v1.py — preço NÃO se edita no HTML: corrige o JSON e roda o montador.
-    - CATEGORIAS = as do cardápio real: Lanches (os 5 grupos do print viram subtítulos: Lanches leves, Hambúrgueres,
-      c/ frango, c/ filé mignon, especiais — com o Nº do balcão em cada lanche), Combos, Pizzas, Bebidas, Porções,
-      Sucos (sucos e vitaminas + cremes). Saíram "Pizzas doces" (o POP não separa: os 4 doces estão entre os 22
-      sabores) e "Açaí e shakes" (não existe no cardápio). Porções voltou porque o POP vende (o brief do Cassiano:
-      "porção só se ele vender"); Pizza continua na 3ª posição, no lugar que ele pediu.
-    - PIZZA: o real é UM tamanho (Grande, 8 pedaços) e UM preço (R$ 69,90) pra qualquer sabor, até 2 sabores
-      ("permitido apenas 2 sabor por pizza"). Saíram o seletor Média/Grande/Família e a borda (o print não tem);
-      o meia a meia com o disco dividido continua, agora com os 22 sabores.
-    - LANCHE: "Turbine" = os 16 ADICIONAIS do print com o preço do print; "tirar ingrediente" sai da descrição do
-      próprio lanche (antes era uma lista fixa com maionese, que nenhum lanche do POP cita).
-    - NOVO TIPO "variante": porção (Pequena/Grande), suco/vitamina (500ml/1L + sabor obrigatório), creme (500ml + sabor).
-    - Açaí (tamanho + complementos) saiu com o açaí. Combo: o print não diz qual refri lata — fica na observação.
-    - "Mais pedidos" virou "Destaques · escolha ilustrativa" e as etiquetas "Mais pedido/Novo/Promo" saíram: não há
-      dado de venda do POP pra afirmar isso. "Combo da semana" virou "Combos do POP" (sem preço riscado inventado).
-    - Busca sem acento ("file" acha "filé") e pela categoria ("pizza" acha os 22 sabores). Item com leitura duvidosa
-      do print mostra a etiqueta CONFERIR (hoje 1: a descrição cortada da Filé Frango Iscas).
-    - Selo "proposta ilustrativa" mantido no topo e no pé, agora dizendo de onde vem o cardápio e o que é fictício.
-    - Mantido da v3 sem mudança: lupa no meio da barra de baixo, nenhum menu no topo, cores POP (#F62A25 / #F3C90C /
-      #1a1414), topo escuro, "pedir de novo", item voando pro carrinho, linha do tempo do pedido, travas, Pix/cartão
-      SIMULADOS, Gestão com números de EXEMPLO (agora com itens e preços reais).
-    - Endereço e telefone do rodapé dos prints NÃO entraram (zero-PII).
-
-  ===== cabeçalho da v3 (histórico) =====
-  APP DE PEDIDOS DO POP LANCHES E PIZZAS — v3_app_cassiano (27/09/2026) · ZELES
-  PRÉVIA DE LAYOUT. Não é produção: cardápio, preços, taxas e números continuam FICTÍCIOS (herdados do v2_vitrine).
-
-  O QUE MUDOU DO v2_vitrine E POR QUÊ:
-    - pedido do Cassiano (diretor criativo), áudios 2435-2437 de 27/09/2026, com um print de app de hamburgueria como
-      referência de estilo: "fugir da ideia de iFood" — prático e simples, mas chamativo, gostoso de mexer, com detalhes
-      que façam a pessoa dizer "não preciso do iFood".
-    - CARA NOVA (a lógica é a do v2): topo ESCURO com ilustração grande do produto à direita, rótulo em caixa alta,
-      título serifado em 2 linhas (2ª linha no amarelo POP), 2 botões (Pedir agora / Ver cardápio); logo no centro do
-      topo e carrinho com contador à direita; categorias em cartões brancos com desenho; "Mais pedidos" em cards com
-      botão redondo "+"; banner escuro de COMBO DA SEMANA com selo redondo; faixa de 3 serviços; barra fixa embaixo.
-    - AS MUDANÇAS DELE sobre a referência: (1) barra de baixo = Início · Cardápio · LUPA NO MEIO (elevada) · Pedidos ·
-      Perfil, e a lupa abre a busca; (2) NENHUM menu no canto de cima — topo é só logo + carrinho; (3) Pizza no lugar
-      de "Porções" na faixa de categorias; (4) cores da identidade POP (vermelho #F62A25, amarelo #F3C90C, escuro
-      #1a1414); (5) detalhes "melhor que iFood", todos ILUSTRATIVOS:
-        a. "Pedir de novo" o último pedido em 1 toque (início e aba Pedidos);
-        b. pizza meia a meia montada VENDO o disco dividido, que troca a metade na hora;
-        c. acompanhamento do pedido em linha do tempo, com a hora de cada etapa (v5: sem a moto andando);
-        d. microanimação: o item "voa" até o carrinho e o contador pula;
-        e. mensagem de marca "sem app no meio: o pedido cai direto na cozinha do POP" (sem número inventado).
-    - Fontes: Fraunces (título serifado forte) + Inter (corpo). Mobile 390 px é o alvo; no computador o app aparece
-      centralizado numa moldura de celular de 420 px.
-    - Tirado da loja: pílulas de horário/tempo/taxa no topo (eram fictícias e prometiam operação); a troca Cliente/
-      Gestão saiu do topo e foi pro Perfil ("Painel do POP").
-  O QUE CONTINUA IGUAL AO v2: cardápio e preços FICTÍCIOS (43 itens, selo "Proposta ilustrativa · cardápio e preços
-  fictícios" no topo e no pé), desenhos SVG próprios, carrinho, taxa por bairro fictícia, pizza com tamanho/meia a
-  meia/borda, lanche com adicionais, açaí, as 5 travas antes de cobrar, Pix e cartão 100% SIMULADOS (nenhuma chave,
-  nenhum campo de cartão digitável), 6 estados do pedido, painel de gestão com números de EXEMPLO. Nenhum dado de pessoa.
-  Rotas: #inicio #cardapio-<cat|tudo> #busca #produto-<id> #carrinho #checkout #pix #cartao #pedidos #pedido #perfil #gestao
-         ?demo = carrinho de exemplo · ?pausada
--->
 <html lang="pt-BR">
 <head>
-<meta name="robots" content="noindex, nofollow">
 <meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="previa-commit" content="f003432f4780">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1a1414">
-<title>POP Lanches e Pizzas — prévia do app v6 (ZELES)</title>
+<title>POP Lanches e Pizzas — prévia do app v7 (ZELES)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;0,800;0,900;1,800;1,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -1075,7 +1003,7 @@ function telaInicio(){
 }
 function selo(){
   return `<div class="selo-pe">🧪 <b>Proposta ilustrativa da ZELES para o POP.</b> Cardápio e preços <b>transcritos do story do POP de 31/12/2025</b> — conferir com o balcão antes de publicar. Taxas, tempos, destaques e pedidos de exemplo são <b>fictícios</b>. Pagamento simulado: nada é cobrado.<br>📷 <b>Fotos:</b> fotos reais de lojas bem avaliadas do iFood (Goiânia), usadas <b>só para ilustrar esta prévia</b> — não vão para o site do POP. No site de verdade entram as fotos do próprio POP, feitas numa sessão de fotos profissional.</div>
-    <p class="fonte">POP Lanches e Pizzas · Jataí/GO · prévia de app v6 (fotos reais e cores da logo) · ZELES · Inteligência aplicada</p>`;
+    <p class="fonte">POP Lanches e Pizzas · Jataí/GO · prévia de app v7 (só foto profissional) · ZELES · Inteligência aplicada</p>`;
 }
 
 /* ============ TELA: CARDÁPIO ============ */

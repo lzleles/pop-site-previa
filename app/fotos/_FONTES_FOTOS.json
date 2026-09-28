@@ -1,0 +1,422 @@
+{
+ "pz_calabresa": {
+  "arquivo": "pz_calabresa.jpg",
+  "prato": "Calabresa",
+  "loja": "Artesano Pizza (st.bela Vista) | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/artesano-pizza-stbela-vista-setor-bela-vista/f6fc9c74-e50a-4afd-b946-cfe4fce4a1c2",
+  "nota_loja": "4.8",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/f6fc9c74-e50a-4afd-b946-cfe4fce4a1c2/202107141908_AAJI_i.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "pz_calabacon": {
+  "arquivo": "pz_calabacon.jpg",
+  "prato": "Calabacon",
+  "loja": "Artesano Pizza (st.bela Vista) | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/artesano-pizza-stbela-vista-setor-bela-vista/f6fc9c74-e50a-4afd-b946-cfe4fce4a1c2",
+  "nota_loja": "4.8",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/f6fc9c74-e50a-4afd-b946-cfe4fce4a1c2/202107231737_L8EC_i.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "pz_bacon": {
+  "arquivo": "pz_bacon.jpg",
+  "prato": "Bacon & Cipolle",
+  "loja": "La Tavola Pizzeria | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/la-tavola-pizzeria-setor-central/0ce72df2-22c1-40ad-af72-73b8d0cfcd94",
+  "nota_loja": "5.0",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/0ce72df2-22c1-40ad-af72-73b8d0cfcd94/202603141223_O3X8_i.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "pz_frangobacon": {
+  "arquivo": "pz_frangobacon.jpg",
+  "prato": "Bacon & Cipolle",
+  "loja": "La Tavola Pizzeria | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/la-tavola-pizzeria-setor-central/0ce72df2-22c1-40ad-af72-73b8d0cfcd94",
+  "nota_loja": "5.0",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/0ce72df2-22c1-40ad-af72-73b8d0cfcd94/202603141236_42WP_i.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "pz_frango": {
+  "arquivo": "pz_frango.jpg",
+  "prato": "Frango & Catupiry Especial",
+  "loja": "La Tavola Pizzeria | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/la-tavola-pizzeria-setor-central/0ce72df2-22c1-40ad-af72-73b8d0cfcd94",
+  "nota_loja": "5.0",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/0ce72df2-22c1-40ad-af72-73b8d0cfcd94/202602151737_137Y_i.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "pz_mussarela": {
+  "arquivo": "pz_mussarela.jpg",
+  "prato": "Margherita",
+  "loja": "La Tavola Pizzeria | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/la-tavola-pizzeria-setor-central/0ce72df2-22c1-40ad-af72-73b8d0cfcd94",
+  "nota_loja": "5.0",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/0ce72df2-22c1-40ad-af72-73b8d0cfcd94/202602131121_EVP5_i.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "pz_alho": {
+  "arquivo": "pz_alho.jpg",
+  "prato": "Margherita Doc Vegana",
+  "loja": "Artesano Pizza (st.bela Vista) | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/artesano-pizza-stbela-vista-setor-bela-vista/f6fc9c74-e50a-4afd-b946-cfe4fce4a1c2",
+  "nota_loja": "4.8",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/f6fc9c74-e50a-4afd-b946-cfe4fce4a1c2/202203042321_7J4B_i.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "pz_palmito": {
+  "arquivo": "pz_palmito.jpg",
+  "prato": "Margherita",
+  "loja": "La Tavola Pizzeria | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/la-tavola-pizzeria-setor-central/0ce72df2-22c1-40ad-af72-73b8d0cfcd94",
+  "nota_loja": "5.0",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/0ce72df2-22c1-40ad-af72-73b8d0cfcd94/202603141315_BX8T_i.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "pz_cincoqueijos": {
+  "arquivo": "pz_cincoqueijos.jpg",
+  "prato": "Pizza Grande 8 Fatias - 4 Queijos de Verdade",
+  "loja": "Pizzaria Delivery - Delly Pizza Goiânia",
+  "nota_loja": "Avaliação: 5.0 - Ver mais avaliações",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/aceccc03-cc63-480e-b8ae-a3f23e77b058/202607062105_WY1U_i.jpg",
+  "baixado_em": "28/09/2026",
+  "escolha": "A (folha _ESCOLHAS_AB_2026-09-28, aprovada msgs 3284/3285)",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "pz_presunto": {
+  "arquivo": "pz_presunto.jpg",
+  "prato": "Capricciosa",
+  "loja": "La Tavola Pizzeria | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/la-tavola-pizzeria-setor-central/0ce72df2-22c1-40ad-af72-73b8d0cfcd94",
+  "nota_loja": "5.0",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/0ce72df2-22c1-40ad-af72-73b8d0cfcd94/202602131134_0S4T_i.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "pz_peru": {
+  "arquivo": "pz_peru.jpg",
+  "prato": "Capricciosa",
+  "loja": "La Tavola Pizzeria | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/la-tavola-pizzeria-setor-central/0ce72df2-22c1-40ad-af72-73b8d0cfcd94",
+  "nota_loja": "5.0",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/0ce72df2-22c1-40ad-af72-73b8d0cfcd94/202603141232_O18Y_i.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "pz_milho": {
+  "arquivo": "pz_milho.jpg",
+  "prato": "Pizza Artesanal Premium  Milho com Bacon | Grande (35cm)",
+  "loja": "Pizza Brie - Pizzaria Artesanal",
+  "nota_loja": "Avaliação: 4.9 - Ver mais avaliações",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/d03bc245-747d-4eac-a9f6-c3c5f472aef2/202310192213_74O7_i.jpg",
+  "baixado_em": "28/09/2026",
+  "escolha": "A (folha _ESCOLHAS_AB_2026-09-28, aprovada msgs 3284/3285)",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "pz_moda": {
+  "arquivo": "pz_moda.jpg",
+  "prato": "Alessandro",
+  "loja": "Artesano Pizza (st.bela Vista) | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/artesano-pizza-stbela-vista-setor-bela-vista/f6fc9c74-e50a-4afd-b946-cfe4fce4a1c2",
+  "nota_loja": "4.8",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/f6fc9c74-e50a-4afd-b946-cfe4fce4a1c2/202107231739_2GD5_i.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "pz_queijos": {
+  "arquivo": "pz_queijos.jpg",
+  "prato": "4 queijos",
+  "loja": "Artesano Pizza (st.bela Vista) | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/artesano-pizza-stbela-vista-setor-bela-vista/f6fc9c74-e50a-4afd-b946-cfe4fce4a1c2",
+  "nota_loja": "4.8",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/f6fc9c74-e50a-4afd-b946-cfe4fce4a1c2/202107231735_TFJ5_i.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "pz_doce": {
+  "arquivo": "pz_doce.jpg",
+  "prato": "Combo Delly Pizza c/ Sobremesa | Pizza Gr 8 Fatias + Borda + Broto Morango",
+  "loja": "Pizzaria Delivery - Delly Pizza Goiânia",
+  "nota_loja": "Avaliação: 5.0 - Ver mais avaliações",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/aceccc03-cc63-480e-b8ae-a3f23e77b058/202606151134_LFQX_i.jpg",
+  "baixado_em": "28/09/2026",
+  "escolha": "A (folha _ESCOLHAS_AB_2026-09-28, aprovada msgs 3284/3285)",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "pz_baiana": {
+  "arquivo": "pz_baiana.jpg",
+  "prato": "Pepperoni",
+  "loja": "La Tavola Pizzeria | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/la-tavola-pizzeria-setor-central/0ce72df2-22c1-40ad-af72-73b8d0cfcd94",
+  "nota_loja": "5.0",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/0ce72df2-22c1-40ad-af72-73b8d0cfcd94/202602131120_8283_i.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "pz_bolonhesa": {
+  "arquivo": "pz_bolonhesa.jpg",
+  "prato": "Diávola",
+  "loja": "La Tavola Pizzeria | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/la-tavola-pizzeria-setor-central/0ce72df2-22c1-40ad-af72-73b8d0cfcd94",
+  "nota_loja": "5.0",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/0ce72df2-22c1-40ad-af72-73b8d0cfcd94/202104221237_LX28_.jpeg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "pz_hotdog": {
+  "arquivo": "pz_hotdog.jpg",
+  "prato": "Diavola",
+  "loja": "Artesano Pizza (st.bela Vista) | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/artesano-pizza-stbela-vista-setor-bela-vista/f6fc9c74-e50a-4afd-b946-cfe4fce4a1c2",
+  "nota_loja": "4.8",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/f6fc9c74-e50a-4afd-b946-cfe4fce4a1c2/202107231736_4T5I_i.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "x_tudo": {
+  "arquivo": "x_tudo.jpg",
+  "prato": "Combo Yes Goianão 180g - nosso X-Tudo! | Burger+Batata+Bebida",
+  "loja": "Yes Burger - Hamburgueria Gourmet - Desde 2015",
+  "nota_loja": "Avaliação: 4.8 - Ver mais avaliações",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/8e64bbde-5586-4cf5-8a83-2d17f540eef4/202609272348_7CVQ_.jpeg",
+  "baixado_em": "28/09/2026",
+  "escolha": "A (folha _ESCOLHAS_AB_2026-09-28, aprovada msgs 3284/3285)",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "x_bacon": {
+  "arquivo": "x_bacon.jpg",
+  "prato": "Brabo bacon lovers",
+  "loja": "Fábrica do Hambúrguer | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/fabrica-do-hamburguer-setor-negrao-de-lima/6a680a1b-da04-4a3e-af0d-16c2153b9a65",
+  "nota_loja": "4.8",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/6a680a1b-da04-4a3e-af0d-16c2153b9a65/202301070846_VPpG_.jpeg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "x_duplo": {
+  "arquivo": "x_duplo.jpg",
+  "prato": "Monster burguer",
+  "loja": "Fábrica do Hambúrguer | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/fabrica-do-hamburguer-setor-negrao-de-lima/6a680a1b-da04-4a3e-af0d-16c2153b9a65",
+  "nota_loja": "4.8",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/6a680a1b-da04-4a3e-af0d-16c2153b9a65/202211251357_pRN1_d.png",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "x_frango": {
+  "arquivo": "x_frango.jpg",
+  "prato": "Chicken Yes",
+  "loja": "Yes Burger - Hamburgueria Gourmet - Desde 2015",
+  "nota_loja": "Avaliação: 4.8 - Ver mais avaliações",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/8e64bbde-5586-4cf5-8a83-2d17f540eef4/202609272339_FGU4_.jpeg",
+  "baixado_em": "28/09/2026",
+  "escolha": "A (folha _ESCOLHAS_AB_2026-09-28, aprovada msgs 3284/3285)",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "x_simples": {
+  "arquivo": "x_simples.jpg",
+  "prato": "Smash Burger 120g",
+  "loja": "Best Burgers - Hamburgueria Artesanal | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/best-burger---hamburgueria-artesanal-setor-bueno/19badad1-059f-442d-871a-d71936544cb3",
+  "nota_loja": "4.8",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/19badad1-059f-442d-871a-d71936544cb3/202305121056_57I2_i.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "x_salada": {
+  "arquivo": "x_salada.jpg",
+  "prato": "Burguer supreme salada",
+  "loja": "Fábrica do Hambúrguer | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/fabrica-do-hamburguer-setor-negrao-de-lima/6a680a1b-da04-4a3e-af0d-16c2153b9a65",
+  "nota_loja": "4.8",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/6a680a1b-da04-4a3e-af0d-16c2153b9a65/202402280211_JupV_.jpeg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "x_file": {
+  "arquivo": "x_file.jpg",
+  "prato": "Nashville Burger Gourmet 180g",
+  "loja": "Best Burgers - Hamburgueria Artesanal | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/best-burger---hamburgueria-artesanal-setor-bueno/19badad1-059f-442d-871a-d71936544cb3",
+  "nota_loja": "4.8",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/19badad1-059f-442d-871a-d71936544cb3/202305121053_S2N0_i.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "x_gourmet": {
+  "arquivo": "x_gourmet.jpg",
+  "prato": "Toronto Burger Gourmet 180g",
+  "loja": "Best Burgers - Hamburgueria Artesanal | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/best-burger---hamburgueria-artesanal-setor-bueno/19badad1-059f-442d-871a-d71936544cb3",
+  "nota_loja": "4.8",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/19badad1-059f-442d-871a-d71936544cb3/202305121846_41N3_i.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "sanduiche": {
+  "arquivo": "sanduiche.jpg",
+  "prato": "Sanduiche Natural com Frango desfiado",
+  "loja": "Empório/lanchonete América Gourmet | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/emporio-lanchonete-america-gourmet-jardim-america/8b8184c0-bf27-4a73-be1d-e9f259693dfb",
+  "nota_loja": null,
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/8b8184c0-bf27-4a73-be1d-e9f259693dfb/202404042053_fQGZ_.jpeg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "batata": {
+  "arquivo": "batata.jpg",
+  "prato": "Batata G 270g",
+  "loja": "Turco Santa Rita - Hambúrguer Artesanal",
+  "nota_loja": "Avaliação: 4.9 - Ver mais avaliações",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/ea446066-a8d5-4c60-81ff-4a2451ecf2e0/202012271901_SFCe_f.png",
+  "baixado_em": "28/09/2026",
+  "escolha": "A (folha _ESCOLHAS_AB_2026-09-28, aprovada msgs 3284/3285)",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "batata_cheddar": {
+  "arquivo": "batata_cheddar.jpg",
+  "prato": "Batata Grande Com Bacon e Cheddar",
+  "loja": "Mc Lanche Pit Dog/ X-tudo 19,99 Promoção | APARECIDA DE GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/aparecida-de-goiania-go/mc-lanche-pit-dog--x-tudo-1999-promocao-jardim-alto-paraiso/4a13a1bc-425e-46da-a797-805c3a01c9c4",
+  "nota_loja": null,
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/4a13a1bc-425e-46da-a797-805c3a01c9c4/202304280146_0NUW_i.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "frango_iscas": {
+  "arquivo": "frango_iscas.jpg",
+  "prato": "Chicken Bites individual 150g",
+  "loja": "Fábrica do Hambúrguer | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/fabrica-do-hamburguer-setor-negrao-de-lima/6a680a1b-da04-4a3e-af0d-16c2153b9a65",
+  "nota_loja": "4.8",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/6a680a1b-da04-4a3e-af0d-16c2153b9a65/202508211321_6F72_.jpeg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "combo": {
+  "arquivo": "combo.jpg",
+  "prato": "Combo Salad Burger",
+  "loja": "Elipa Hambúrguer Artesanal e Lanches",
+  "nota_loja": "",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/25e76df7-4ecb-4727-877f-36cd978ee2b5/202204162321_z0vck8mfzo.png",
+  "baixado_em": "28/09/2026",
+  "escolha": "A (folha _ESCOLHAS_AB_2026-09-28, aprovada msgs 3284/3285)",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "coca2l": {
+  "arquivo": "coca2l.jpg",
+  "prato": "Coca-Cola Original 2l",
+  "loja": "Pitigliano Pizzaria | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/pitigliano-pizzaria-setor-oeste/d654fc6f-88a6-4754-9634-424ca7189549",
+  "nota_loja": "4.9",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202210190433_mj9iwsy782.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "mineiro2l": {
+  "arquivo": "mineiro2l.jpg",
+  "prato": "Refrigerante Guaraná Mineiro 2l",
+  "loja": "Empório/lanchonete América Gourmet | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/emporio-lanchonete-america-gourmet-jardim-america/8b8184c0-bf27-4a73-be1d-e9f259693dfb",
+  "nota_loja": null,
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202210180330_1oggcmfxd39.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "sukita2l": {
+  "arquivo": "sukita2l.jpg",
+  "prato": "Refrigerante Sukita Laranja Pet 2 L",
+  "loja": "X Tudo | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/x-tudo-condominio-amin-camargo/24d6ddc3-5285-4ad1-9c06-3865eb3dafc9",
+  "nota_loja": null,
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202210190103_deup2o91e86.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "coca1l": {
+  "arquivo": "coca1l.jpg",
+  "prato": "Coca-Cola 1l",
+  "loja": "La Tavola Pizzeria | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/la-tavola-pizzeria-setor-central/0ce72df2-22c1-40ad-af72-73b8d0cfcd94",
+  "nota_loja": "5.0",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202312051703_i9mf59ukfbl.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "coca600": {
+  "arquivo": "coca600.jpg",
+  "prato": "Coca-Cola Original 600ml",
+  "loja": "Pitigliano Pizzaria | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/pitigliano-pizzaria-setor-oeste/d654fc6f-88a6-4754-9634-424ca7189549",
+  "nota_loja": "4.9",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202210192312_epmc5if47z.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "guarana600": {
+  "arquivo": "guarana600.jpg",
+  "prato": "Refrigerante Antarctica Guaraná 600 Ml",
+  "loja": "Pitigliano Pizzaria | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/pitigliano-pizzaria-setor-oeste/d654fc6f-88a6-4754-9634-424ca7189549",
+  "nota_loja": "4.9",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202210181755_vo1bculp2o.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "cocalata": {
+  "arquivo": "cocalata.jpg",
+  "prato": "Refrigerante Coca-Cola Lata 350ml",
+  "loja": "Pitigliano Pizzaria | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/pitigliano-pizzaria-setor-oeste/d654fc6f-88a6-4754-9634-424ca7189549",
+  "nota_loja": "4.9",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202210200237_btcjxya1zoh.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "fantalata": {
+  "arquivo": "fantalata.jpg",
+  "prato": "Refrigerante Fanta Laranja 350ml",
+  "loja": "Pitigliano Pizzaria | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/pitigliano-pizzaria-setor-oeste/d654fc6f-88a6-4754-9634-424ca7189549",
+  "nota_loja": "4.9",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202210192312_6sd54spc02t.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "guaranalata": {
+  "arquivo": "guaranalata.jpg",
+  "prato": "Refrigerante Guarana Antarctica 355ml",
+  "loja": "Pitigliano Pizzaria | GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/goiania-go/pitigliano-pizzaria-setor-oeste/d654fc6f-88a6-4754-9634-424ca7189549",
+  "nota_loja": "4.9",
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/820af392-002c-47b1-bfae-d7ef31743c7f/202210181754_3akgbd3d515.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "suco": {
+  "arquivo": "suco.jpg",
+  "prato": "Suco Maracujá",
+  "loja": "Mc Lanche Pit Dog/ X-tudo 19,99 Promoção | APARECIDA DE GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/aparecida-de-goiania-go/mc-lanche-pit-dog--x-tudo-1999-promocao-jardim-alto-paraiso/4a13a1bc-425e-46da-a797-805c3a01c9c4",
+  "nota_loja": null,
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/4a13a1bc-425e-46da-a797-805c3a01c9c4/202205170824_V1J3_i.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ },
+ "creme": {
+  "arquivo": "creme.jpg",
+  "prato": "Creme Goiaba",
+  "loja": "Mc Lanche Pit Dog/ X-tudo 19,99 Promoção | APARECIDA DE GOIANIA",
+  "loja_url": "https://www.ifood.com.br/delivery/aparecida-de-goiania-go/mc-lanche-pit-dog--x-tudo-1999-promocao-jardim-alto-paraiso/4a13a1bc-425e-46da-a797-805c3a01c9c4",
+  "nota_loja": null,
+  "foto_original": "https://static.ifood-static.com.br/image/upload/t_high/pratos/4a13a1bc-425e-46da-a797-805c3a01c9c4/202205170835_G53J_i.jpg",
+  "baixado_em": "28/09/2026 18:24",
+  "uso": "so ilustracao da previa para o Moises; nunca no site de verdade"
+ }
+}
