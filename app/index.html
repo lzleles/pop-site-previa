@@ -4,10 +4,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
-<meta name="previa-commit" content="f003432f4780">
+<meta name="previa-commit" content="87ce63ca1697">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1a1414">
-<title>POP Lanches e Pizzas — prévia do app v7 (ZELES)</title>
+<title>POP Lanches e Pizzas — prévia do app v9 (ZELES)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;0,800;0,900;1,800;1,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -506,6 +506,29 @@ img.foto{width:100%;height:100%;object-fit:cover;display:block;border-radius:inh
 .direto .d-ic{color:#fff;background:#0b0b0b}
 .nav .lupa.on i{color:#fff}
 .foto-cred{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.6);color:#fff;font-size:9.5px;padding:2px 7px;border-radius:999px}
+
+/* v8: comanda + pedida do dia */
+.pedida{margin:18px 0 12px;width:calc(100% / .74)}   /* a capa-txt tem 74%: o bloco ocupa a largura toda da capa */
+.pd-card{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:0;cursor:pointer;
+  background:var(--red);color:#fff;border-radius:18px;padding:10px 14px 10px 10px;box-shadow:0 10px 22px rgba(246,42,37,.38);font:inherit}
+.pd-card img{width:74px;height:74px;border-radius:14px;object-fit:cover;flex:none;border:2px solid rgba(255,255,255,.9)}
+.pd-txt{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.pd-txt small{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;opacity:.95}
+.pd-txt b{font-size:14.5px;line-height:1.2;font-weight:700}
+.pd-preco{font-family:var(--serif);font-weight:900;font-size:22px;line-height:1.1;margin-top:2px}
+.pd-quero{display:flex;align-items:center;gap:4px;font-weight:800;font-size:13px;white-space:nowrap;background:#0b0b0b;border-radius:999px;padding:7px 11px}
+.pd-quero svg{width:14px;height:14px}
+.pd-pontos{display:flex;gap:6px;justify-content:center;margin-top:8px}
+.pd-pontos i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer}
+.pd-pontos i.on{background:#fff}
+
+/* v9: capa so com a logo (audio 3328) */
+.a-logo{position:absolute;right:6px;top:86px;width:140px;height:140px;pointer-events:none;
+  mix-blend-mode:lighten}  /* o blend fica NO BLOCO, sem z-index proprio isolando: o preto do jpg some no fundo da capa */
+.a-logo img{width:100%;height:100%;object-fit:contain;animation:logoRespira 5.5s ease-in-out infinite}
+@keyframes logoRespira{0%,100%{transform:scale(1) rotate(-4deg)}50%{transform:scale(1.04) rotate(-2deg)}}
+@media (prefers-reduced-motion:reduce){.a-logo img{animation:none;transform:rotate(-4deg)}}
+.capa:after{background:linear-gradient(90deg,rgba(26,20,20,.96) 0%,rgba(26,20,20,.6) 50%,rgba(26,20,20,0) 66%)}
 </style>
 </head>
 <body>
@@ -776,7 +799,7 @@ function travas(){
   return [
     {ok:S.lojaAberta, t:"Loja aberta no horário"},
     {ok:!S.pausada, t:S.pausada?"Loja pausada (cozinha cheia)":"Loja recebendo pedidos agora"},
-    {ok:itensEsg.length===0, t: itensEsg.length ? "Item esgotado no carrinho: "+itensEsg.map(x=>x.nome).join(", ") : "Todos os itens disponíveis"},
+    {ok:itensEsg.length===0, t: itensEsg.length ? "Item esgotado na comanda: "+itensEsg.map(x=>x.nome).join(", ") : "Todos os itens disponíveis"},
     {ok:S.bairro!==FORA_DO_RAIO, t: S.bairro!==FORA_DO_RAIO ? "Endereço dentro da área de entrega" : "Bairro fora da área de entrega"},
     {ok:true, t:"Preço conferido no servidor"}
   ];
@@ -871,6 +894,7 @@ const IC = {
   lupa:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/>',
   recibo:'<path d="M6 3h12v18l-2-1.4-2 1.4-2-1.4-2 1.4-2-1.4L6 21z"/><path d="M9 8h6M9 12h6M9 16h3"/>',
   user:'<circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5c1-4 4-6 7.5-6s6.5 2 7.5 6"/>',
+  comanda:'<path d="M6 3h12v17l-2-1.4-2 1.4-2-1.4-2 1.4-2-1.4-2 1.4z"/><path d="M9 8h6M9 11.5h6M9 15h3.5"/>',
   cart:'<path d="M3 4h2.2l2.3 11.2h10.8L20.5 7.5H6.4"/><circle cx="9.5" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/>',
   seta:'<path d="M5 12h14M13 6l6 6-6 6"/>',
   volta:'<path d="M15 5l-7 7 7 7"/>',
@@ -895,7 +919,7 @@ function strip(){
 }
 function cartBtn(){
   const n = qtdCarrinho();
-  return `<button class="cartbtn" id="cartbtn" onclick="ir('carrinho')" aria-label="Carrinho">${ic("cart")}<span class="badge ${n?"":"zero"}" id="badge">${n}</span></button>`;
+  return `<button class="cartbtn" id="cartbtn" onclick="ir('carrinho')" aria-label="Comanda">${ic("comanda")}<span class="badge ${n?"":"zero"}" id="badge">${n}</span></button>`;
 }
 /* topo das abas: SÓ logo no centro + carrinho (nenhum menu — pedido do Cassiano) */
 function topo(){ return `<header class="topo" id="topo"><span></span><button class="marca" onclick="ir('inicio')" aria-label="Início"><img class="logo-pop" src="logo_pop.jpg" alt="POP Lanches e Pizzas"></button>${cartBtn()}</header>`; }
@@ -910,13 +934,13 @@ function nav(){
     ${b("inicio","inicio","casa","Início")}
     ${b("cardapio","cardapio-"+(S.catMenu||"tudo"),"livro","Cardápio")}
     <button class="lupa ${aba==="busca"?"on":""}" id="lupa" onclick="ir('busca')" aria-label="Buscar lanche ou pizza"><i>${ic("lupa")}</i><span>Buscar</span></button>
-    ${b("pedidos","pedidos","recibo","Pedidos",vivo)}
+    ${b("pedidos","pedidos","moto","Pedidos",vivo)}
     ${b("perfil","perfil","user","Perfil")}
   </nav>`;
 }
 function cartFloat(){
   const n = qtdCarrinho();
-  return `<button class="cartfloat ${n?"":"off"}" id="cartfloat" onclick="ir('carrinho')"><span><span class="n" id="cf-n">${n}</span>Ver carrinho</span><span id="cf-v">${brl(subtotal())} ›</span></button>`;
+  return `<button class="cartfloat ${n?"":"off"}" id="cartfloat" onclick="ir('carrinho')"><span><span class="n" id="cf-n">${n}</span>Ver comanda</span><span id="cf-v">${brl(subtotal())} ›</span></button>`;
 }
 function atualizaCarrinhoUI(pular){
   const n = qtdCarrinho(), bd = $("#badge"), cf = $("#cartfloat");
@@ -960,7 +984,7 @@ function quickAdd(id, ev){
 function pedirDeNovo(ev){
   S.ultimo.forEach(juntaNoCarrinho);
   voar(ev && ev.currentTarget);
-  toast("Seu último pedido voltou pro carrinho. Confere e paga.");
+  toast("Seu último pedido voltou pra comanda. Confere e paga.");
 }
 function precoTxt(it){
   if (it.tipo==="pizza") return `${brl(PIZZA.preco)} <small>· grande ${PIZZA.pedacos} pedaços</small>`;
@@ -969,17 +993,21 @@ function precoTxt(it){
 }
 function tagCurta(t){ return t ? `<span class="tag ${t==="promo"?"pr":t}">${{mais:"🔥 Mais pedido",novo:"Novo",promo:"Promo"}[t]}</span>` : ""; }
 
+/* v8: Fome do Dia (uma promocao por vez, a do dia da semana; setas/pontos trocam) */
+const PEDIDAS = [{t:"2 X-Tudo + Batata Grande + Mineiro 1,5L",p:"79,90",f:"fotos/combo.jpg",ir:"cardapio-combos"},{t:"Combo Família: Pizza Grande + 2 X-Especial + Batata Grande + Mineiro 1,5L",p:"129,90",f:"fotos/pz_calabresa.jpg",ir:"cardapio-combos"},{t:"Pizza Grande, 8 pedaços, 2 sabores",p:"59,90",f:"fotos/pz_cincoqueijos.jpg",ir:"cardapio-pizzas"}];
+let _pd = new Date().getDay() % PEDIDAS.length;
+function pedidaHTML(){ const p = PEDIDAS[_pd];
+  return `<button class="pd-card" onclick="ir('${p.ir}')"><img src="${p.f}" alt="" loading="lazy"><span class="pd-txt"><small>Fome do Dia</small><b>${p.t}</b><span class="pd-preco">R$ ${p.p}</span></span><span class="pd-quero">Quero ${ic("seta")}</span></button><div class="pd-pontos">${PEDIDAS.map((x,i)=>`<i class="${i===_pd?"on":""}" onclick="_pd=${i};$('#pedida').innerHTML=pedidaHTML()"></i>`).join("")}</div>`; }
 /* ============ TELA: INÍCIO ============ */
 function telaInicio(){
+  setTimeout(()=>{ const e=$('#pedida'); if(e) e.innerHTML=pedidaHTML(); },0);
   let h = strip() + topo();
   h += `<section class="capa">
-    <div class="a-pizza">${SV(pzArte("calabresa"))}</div>
-    <div class="a-burger">${SV("IMG:fotos/"+(FOTO.xtudo||"x_tudo")+".jpg")}</div>
+    <div class="a-logo"><img src="logo_pop.jpg" alt=""></div>
     <div class="capa-txt"><span class="rotulo">Lanches e pizzas · Jataí-GO</span>
       <h1>Lanche e pizza<br><em>do jeito POP</em></h1>
       <p>Feito na hora, com capricho, do balcão pra sua casa.</p>
-      <button class="btn-p" onclick="ir('cardapio-pizzas')">${ic("sacola")}Pedir agora${ic("seta")}</button>
-      <button class="btn-s" onclick="ir('cardapio-tudo')">${ic("menu")}Ver cardápio</button>
+      <div class="pedida" id="pedida"></div>
     </div></section>`;
   h += `<div class="catcards">${CATS_APP.map(c=>`<button class="cc ${c.id===S.cat?"on":""}" onclick="ir('cardapio-${c.id}')"><span class="cc-img">${SV(artCat(c.id))}</span><b>${CURTO[c.id]}</b></button>`).join("")}</div>`;
   const ult = S.ultimo;
@@ -1003,7 +1031,7 @@ function telaInicio(){
 }
 function selo(){
   return `<div class="selo-pe">🧪 <b>Proposta ilustrativa da ZELES para o POP.</b> Cardápio e preços <b>transcritos do story do POP de 31/12/2025</b> — conferir com o balcão antes de publicar. Taxas, tempos, destaques e pedidos de exemplo são <b>fictícios</b>. Pagamento simulado: nada é cobrado.<br>📷 <b>Fotos:</b> fotos reais de lojas bem avaliadas do iFood (Goiânia), usadas <b>só para ilustrar esta prévia</b> — não vão para o site do POP. No site de verdade entram as fotos do próprio POP, feitas numa sessão de fotos profissional.</div>
-    <p class="fonte">POP Lanches e Pizzas · Jataí/GO · prévia de app v7 (só foto profissional) · ZELES · Inteligência aplicada</p>`;
+    <p class="fonte">POP Lanches e Pizzas · Jataí/GO · prévia de app v8 (comanda e fome do dia) · ZELES · Inteligência aplicada</p>`;
 }
 
 /* ============ TELA: CARDÁPIO ============ */
@@ -1019,7 +1047,7 @@ function telaCardapio(cat){
   if (cat!=="tudo" && !CATS.find(c=>c.id===cat)) cat = "tudo";
   S.catMenu = cat; if (cat!=="tudo") S.cat = cat;
   let h = strip() + topo();
-  h += `<div class="pg-h"><span class="rotulo">Cardápio do POP</span><h1>O que vai <em>hoje?</em></h1><p>Toque na categoria. O "+" põe no carrinho na hora. ${ITENS.length} itens, com o preço do balcão.</p></div>`;
+  h += `<div class="pg-h"><span class="rotulo">Cardápio do POP</span><h1>O que vai <em>hoje?</em></h1><p>Toque na categoria. O "+" põe na comanda na hora. ${ITENS.length} itens, com o preço do balcão.</p></div>`;
   h += `<div class="cardapio"><div class="catcards">
     <button class="cc ${cat==="tudo"?"on":""}" onclick="ir('cardapio-tudo')"><span class="cc-img">${SV(artCat("tudo"))}</span><b>Tudo</b></button>
     ${CATS_APP.map(c=>`<button class="cc ${c.id===cat?"on":""}" data-cat="${c.id}" onclick="ir('cardapio-${c.id}')"><span class="cc-img">${SV(artCat(c.id))}</span><b>${CURTO[c.id]}</b></button>`).join("")}</div>`;
@@ -1152,14 +1180,14 @@ function addCarrinho(){
   juntaNoCarrinho({id:it.id, nome, det:det.join(" · "), qtd:m.qtd, pu:precoMontagem(it,m)});
   montagem = {}; _discoUlt = "";
   S.pulaBadge = true;
-  toast("Adicionado ao carrinho.");
+  toast("Adicionado à comanda.");
   ir(S.voltar);
 }
 
 /* ============ TELA: CARRINHO ============ */
 function telaCarrinho(){
-  let h = strip() + topoVolta("Seu carrinho", S.voltar) + `<div class="pad">`;
-  if (!S.carrinho.length) return h + `<div class="card" style="text-align:center;padding:26px 14px"><div style="font-family:var(--serif);font-size:22px;font-weight:800">Carrinho vazio</div><p class="note">Bora escolher um lanche ou uma pizza?</p></div><button class="big center" onclick="ir('cardapio-tudo')">Ver o cardápio</button></div>`;
+  let h = strip() + topoVolta("Sua comanda", S.voltar) + `<div class="pad">`;
+  if (!S.carrinho.length) return h + `<div class="card" style="text-align:center;padding:26px 14px"><div style="font-family:var(--serif);font-size:22px;font-weight:800">Comanda vazia</div><p class="note">Bora escolher um lanche ou uma pizza?</p></div><button class="big center" onclick="ir('cardapio-tudo')">Ver o cardápio</button></div>`;
   h += `<div class="card">${S.carrinho.map((x,i)=>{ const it=item(x.id); return `<div class="line-item"><div class="mini">${SV(it.art)}</div><div class="d"><b>${x.qtd}× ${esc(x.nome)}</b>${x.det?`<small>${esc(x.det)}</small>`:""}</div>
       <div style="text-align:right"><div class="v">${brl(x.pu*x.qtd)}</div><div class="qty" style="gap:4px;margin-top:4px;justify-content:flex-end"><button style="width:28px;height:28px" onclick="mudaQtd(${i},-1)">−</button><button style="width:28px;height:28px" onclick="mudaQtd(${i},1)">+</button></div></div></div>`; }).join("")}</div>`;
   const sub = subtotal(), fora = S.bairro===FORA_DO_RAIO, tx = taxa(S.bairro, sub), b = bairroObj(S.bairro);
@@ -1225,7 +1253,7 @@ function telaPerfil(){
   h += `<div class="lista">
     <button onclick="toast('Ilustrativo: no app real, o código de entrada chega no WhatsApp.')"><span class="ic">${ic("zap")}</span><span>Entrar com o WhatsApp<small>sem senha <span class="ilus">ilustrativo</span></small></span><b class="chev">›</b></button>
     <button onclick="toast('Endereços: TBD — nasce com o app real.')"><span class="ic">${ic("pino")}</span><span>Endereços salvos<small>TBD</small></span><b class="chev">›</b></button>
-    <button onclick="ir('pedidos')"><span class="ic">${ic("recibo")}</span><span>Meus pedidos<small>acompanhar e pedir de novo</small></span><b class="chev">›</b></button>
+    <button onclick="ir('pedidos')"><span class="ic">${ic("moto")}</span><span>Meus pedidos<small>acompanhar e pedir de novo</small></span><b class="chev">›</b></button>
     <button onclick="toast('Pix e cartão de crédito — nesta prévia, tudo simulado.')"><span class="ic">${ic("cartao")}</span><span>Formas de pagamento<small>Pix e cartão · simulado</small></span><b class="chev">›</b></button>
   </div>`;
   h += `<div class="lista">
@@ -1338,9 +1366,9 @@ function telaGestao(){
   const dn = ["Seg","Ter","Qua","Qui","Sex","Sáb","Dom"]; const cd = dn.map((_,i)=>soma(ok.filter(o=>o.dow===i))); const dmax=Math.max(1,...cd);
   h += `<div class="g-sec"><h2>Vendas por dia da semana ${EX}</h2><div class="card"><div class="vbars">${dn.map((d,i)=>`<div class="c ${cd[i]===dmax?"pk":""}"><em>${(cd[i]/1000).toFixed(1).replace(".",",")}k</em><i style="height:${cd[i]/dmax*80}%"></i><span>${d}</span></div>`).join("")}</div></div></div>`;
   /* funil + origem */
-  const pagos = ok.length, fun = [["Entrou no site", Math.round(pagos*6.1)],["Abriu um item", Math.round(pagos*3.4)],["Pôs no carrinho", Math.round(pagos*1.9)],["Foi pagar", Math.round(pagos*1.25)],["Pagou", pagos]];
+  const pagos = ok.length, fun = [["Entrou no site", Math.round(pagos*6.1)],["Abriu um item", Math.round(pagos*3.4)],["Pôs na comanda", Math.round(pagos*1.9)],["Foi pagar", Math.round(pagos*1.25)],["Pagou", pagos]];
   h += `<div class="g-sec"><h2>Funil do site ${EX}</h2><div class="card funnel">${fun.map(f=>`<div class="fs"><span>${f[0]}</span><div class="track"><div class="fill" style="width:${f[1]/fun[0][1]*100}%"></div></div><span style="text-align:right;font-weight:700">${f[1]}</span></div>`).join("")}
-      <p class="note">Mostra onde o cliente desiste: no cardápio, no carrinho ou na hora de pagar.</p></div></div>`;
+      <p class="note">Mostra onde o cliente desiste: no cardápio, na comanda ou na hora de pagar.</p></div></div>`;
   const org = {}; ok.forEach(o=>org[o.origem]=(org[o.origem]||0)+1); const oe = Object.entries(org).sort((a,b)=>b[1]-a[1]);
   h += `<div class="g-sec"><h2>De onde veio o pedido ${EX}</h2><div class="card bars">${oe.map(([n,v])=>`<div class="b"><span class="nm">${n}</span><div class="track"><div class="fill" style="width:${v/oe[0][1]*100}%;background:var(--green)"></div></div><span class="val">${pagos?Math.round(v/pagos*100):0}%</span></div>`).join("")}
       <p class="note">Pedido que veio de anúncio volta pro anúncio como venda — é assim que se sabe se o anúncio paga.</p></div></div>`;
