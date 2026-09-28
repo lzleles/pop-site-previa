@@ -4,10 +4,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
-<meta name="previa-commit" content="7aa8efe84e80">
+<meta name="previa-commit" content="703c5db93cdd">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1a1414">
-<title>POP Lanches e Pizzas — prévia do app v12 (ZELES)</title>
+<title>POP Lanches e Pizzas — prévia do app v13 (ZELES)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;0,800;0,900;1,800;1,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -1157,7 +1157,7 @@ function telaProduto(id){
     if (ing.length) h += `<div class="bloco" id="bloco-tirar">
       <label class="opt quer-tirar" id="quer-tirar"><span>Deseja remover algum ingrediente?</span><input type="checkbox" ${m.querTirar?"checked":""} onchange="marcaTirar(this.checked)"></label>
       <div class="chipsx tirar-lista ${m.querTirar?"":"travada"}">${ing.map(s=>`<button class="${m.tirar.includes(s)?"on":""}" onclick="togTirar('${s.replace(/'/g,"")}')">Sem ${esc(s)}</button>`).join("")}</div></div>`;
-    h += `<div class="bloco" id="bloco-molho"><h3>Molho <span class="rule req">obrigatório</span> <span class="ilus">exemplo: confirmar os molhos com o POP</span></h3>
+    h += `<div class="bloco" id="bloco-molho"><h3>Molho <span class="rule req">obrigatório</span></h3>
       ${MOLHOS.concat(["Sem molho"]).map(s=>`<label class="opt"><span>${s==="Sem molho"?"Não quero molho":esc(s)}</span><input type="checkbox" data-molho="${s}" ${m.molhos.includes(s)?"checked":""} onchange="togMolho('${s}')"></label>`).join("")}</div>`;
   }
   if (it.tipo==="variante"){
@@ -1198,8 +1198,8 @@ function togMolho(s){ const m=montagem; let a=m.molhos; const i=a.indexOf(s);
   render(); }
 function addCarrinho(){
   const it = item(montagem.id), m = montagem;
-  if (it.tipo==="lanche" && m.querTirar && !m.tirar.length){ toast("Escolha o que remover (ou desmarque a caixinha)."); const b=$("#bloco-tirar"); if(b){ b.scrollIntoView({behavior:"smooth",block:"center"}); treme(b); } return; }
-  if (it.tipo==="lanche" && !m.molhos.length){ toast("Marque o molho, ou: Não quero molho."); const b=$("#bloco-molho"); if(b){ b.scrollIntoView({behavior:"smooth",block:"center"}); treme(b); } return; }
+  if (it.tipo==="lanche" && m.querTirar && !m.tirar.length){  const b=$("#bloco-tirar"); if(b){ b.scrollIntoView({behavior:"smooth",block:"center"}); treme(b); } return; }
+  if (it.tipo==="lanche" && !m.molhos.length){  const b=$("#bloco-molho"); if(b){ b.scrollIntoView({behavior:"smooth",block:"center"}); treme(b); } return; }
   if (it.tipo==="variante" && it.sabores && !m.sabor){ toast("Escolha o sabor."); const b=$("#bloco-sab"); if(b) b.scrollIntoView({behavior:"smooth",block:"center"}); return; }
   let det = [], nome = it.nome;
   if (it.tipo==="pizza"){
