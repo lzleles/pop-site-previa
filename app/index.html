@@ -79,14 +79,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1a1414">
-<title>POP Lanches e Pizzas — prévia do app v4 (ZELES)</title>
+<title>POP Lanches e Pizzas — prévia do app v6 (ZELES)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800;9..144,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;0,800;0,900;1,800;1,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --red:#F62A25; --red-d:#C72017; --ink:#1a1414; --ink2:#645c58; --line:#eadfd5;
-  --bg:#f8f3ed; --card:#ffffff; --green:#13994B; --yellow:#F3C90C; --gold:#CD9143;
+  --bg:#f6f6f4; --card:#ffffff; --green:#13994B; --yellow:#13994B; --gold:#CD9143;
   --ex:#7a4dff;
 }
 *{box-sizing:border-box}
@@ -299,7 +299,7 @@ table.t td.r,table.t th.r{text-align:right}
 .toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);background:#171212;color:#fff;padding:10px 14px;border-radius:12px;font-size:13px;z-index:50;max-width:90%;display:none}
 .hidden{display:none!important}
 /* ======================= v3 — CARA DO APP (sobrepõe o v2) ======================= */
-:root{ --serif:"Fraunces",Georgia,"Times New Roman",serif; --dark:#1a1414; --dark2:#241b19; }
+:root{ --serif:"Poppins","Inter",system-ui,sans-serif; --dark:#1a1414; --dark2:#241b19; }
 body{background:#2a201e;font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:14.5px}
 .app{max-width:420px;padding-bottom:112px;overflow:clip;box-shadow:none}
 @media (min-width:520px){
@@ -561,6 +561,23 @@ body{background:#2a201e;font-family:"Inter",system-ui,-apple-system,"Segoe UI",R
 .tam-unico b{font-size:15px} .tam-unico span{color:var(--ink2);font-size:12.5px} .tam-unico em{margin-left:auto;font-style:normal;font-weight:800;font-size:15px}
 .ilus{display:inline-block;background:#efe9ff;color:var(--ex);border:1px dashed #b9a4ff;border-radius:6px;padding:0 5px;font-size:9.5px;font-weight:800;letter-spacing:.3px;vertical-align:1px;text-transform:uppercase}
 .toast{bottom:150px;border-radius:14px}
+
+/* v6: foto real + logo */
+img.foto{width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit}
+.thumb img.foto{border-radius:14px}
+.it .thumb:has(img.foto){background:none}
+.mpc-img img.foto{position:absolute;inset:0}
+.cc .cc-img{width:62px;height:52px;border-radius:12px;overflow:hidden}
+.dn-pics span{overflow:hidden}
+.cb-arte{border-radius:50%;overflow:hidden;width:150px;height:150px;right:-10px;bottom:-6px;border:4px solid #fff;box-shadow:0 10px 18px rgba(0,0,0,.45)}
+.a-burger{border-radius:50%;overflow:hidden;border:4px solid #fff}
+.pd-arte:has(img.foto){width:100%;max-width:360px;height:250px;border-radius:22px;overflow:hidden;box-shadow:0 14px 24px rgba(0,0,0,.45)}
+.logo-pop{width:54px;height:54px;border-radius:50%;display:block;margin:0 auto;box-shadow:0 0 0 2px #fff}
+.selo-r,.direto,.promo .kick{color:#fff}
+.selo-r b,.direto b{color:#fff}
+.direto .d-ic{color:#fff;background:#0b0b0b}
+.nav .lupa.on i{color:#fff}
+.foto-cred{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.6);color:#fff;font-size:9.5px;padding:2px 7px;border-radius:999px}
 </style>
 </head>
 <body>
@@ -568,7 +585,7 @@ body{background:#2a201e;font-family:"Inter",system-ui,-apple-system,"Segoe UI",R
 <div class="toast" id="toast"></div>
 <script>
 /* ============ DESENHOS (SVG feito aqui — sem foto de terceiro, sem marca, sem letra) ============ */
-const SV = inner => `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${inner}</svg>`;
+const SV = inner => (typeof inner==="string" && inner.startsWith("IMG:")) ? `<img class="foto" src="${inner.slice(4)}" alt="" loading="lazy" decoding="async">` : `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${inner}</svg>`;
 function gBurger(v={}){
   const patty = v.patty || "#6B3A1F";
   return `<path d="M15 74 h70 v2 q0 10 -11 10 h-48 q-11 0 -11 -10z" fill="#D98A2B"/>
@@ -702,13 +719,20 @@ CARDAPIO.categorias.forEach(c=>{
     else ITENS.push({...base, tipo:"simples", preco:x.preco, lanche:x.lanche||null});
   });
 });
+/* desenho de cada item (desenho da casa; na v6 so pra quem nao tem foto) */
+/* v6: FOTO REAL no lugar do desenho (fotos de lojas do iFood, so ilustracao desta previa) */
+const FOTO = {"americana": "pz_presunto", "hotdog": "pz_hotdog", "mussarela": "pz_mussarela", "mussarelaalho": "pz_alho", "baiana": "pz_baiana", "presuntoqueijo": "pz_peru", "milho": "pz_milho", "banana": "pz_doce", "frangocatupiry": "pz_frango", "calabresa": "pz_calabresa", "bacon": "pz_bacon", "peru": "pz_peru", "quatroqueijos": "pz_queijos", "chocolate": "pz_doce", "modadacasa": "pz_moda", "calabresabacon": "pz_calabacon", "frangobacon": "pz_frangobacon", "cincoqueijos": "pz_cincoqueijos", "bolonhesa": "pz_bolonhesa", "palmito": "pz_palmito", "bananachocolate": "pz_doce", "prestigio": "pz_doce", "bauru": "sanduiche", "misto": "sanduiche", "baurubacon": "sanduiche", "xvegetariano": "x_salada", "bauruturbinado": "x_tudo", "xbacon": "x_bacon", "xtudo": "x_tudo", "xsalada": "x_salada", "xsaladaesp": "x_salada", "xcalabresa": "x_gourmet", "xtudoesp": "x_tudo", "xabacaxi": "x_salada", "xburguer": "x_simples", "churrasfrango": "sanduiche", "xfrango": "x_frango", "xfrangotudo": "x_frango", "xfrangobombado": "x_frango", "churrasfile": "sanduiche", "xfile": "x_file", "xfilepatrao": "x_file", "xfiletudo": "x_file", "xfilematador": "x_duplo", "xtopmoda": "x_duplo", "xblaster": "x_duplo", "xconfusao": "x_duplo", "xpica": "x_duplo", "batatafrita": "batata", "batatabaconcheddar": "batata_cheddar", "batatabaconmussarela": "batata_cheddar", "batatacalabresa": "batata_cheddar", "filefrangoiscas": "frango_iscas", "combobacon": "combo", "combocalabresa": "combo", "combosaladaesp": "combo", "combofrango": "combo", "coca2l": "coca2l", "sukita2l": "sukita2l", "mineiro2l": "mineiro2l", "coca600": "coca600", "mineiro600": "guarana600", "cocalata": "cocalata", "mineirolata": "guaranalata", "fantalata": "fantalata", "coca1l": "coca1l", "suco": "suco", "creme": "creme"};
+let _pzk = 0;
+function pzArte(id){ const f = FOTO[id]; if(!f) return gPizza(PZ[id]); const k = ++_pzk;
+  return `<defs><clipPath id="pc${k}"><circle cx="50" cy="50" r="49"/></clipPath></defs><image href="fotos/${f}.jpg" x="-17" y="0" width="134" height="100" preserveAspectRatio="xMidYMid slice" clip-path="url(#pc${k})"/>`; }
 /* desenho de cada item (desenho da casa, sem foto de terceiro nem marca) */
 const BEB = {coca2l:["g","#3A1E12"],sukita2l:["g","#F7931E","#F3C90C"],soda2l:["g","#8BC34A","#13994B"],mineiro2l:["g","#2E7D32","#F3C90C"],
   coca600:["g","#3A1E12"],mineiro600:["g","#2E7D32","#F3C90C"],coca1l:["g","#3A1E12"],cocalata:["l","#E4262A"],mineirolata:["l","#2E7D32"],
   fantalata:["l","#F7931E"],copoespecial:["c","#BFE3F2"]};
 function arteDe(it){
+  if (FOTO[it.id] && it.tipo!=="pizza") return "IMG:fotos/"+FOTO[it.id]+".jpg";
   const d = (it.nome+" "+it.desc).toLowerCase();
-  if (it.tipo==="pizza") return gPizza(PZ[it.id]);
+  if (it.tipo==="pizza") return pzArte(it.id);
   if (it.cat==="lanches"){
     if (it.id==="misto") return gFrances({recheio:"#F4A6A0"});
     if (it.id.startsWith("churras")) return gFrances({recheio:it.id==="churrasfile"?"#6B3A1F":"#D9A560", cebola:1});
@@ -730,7 +754,8 @@ function arteDe(it){
 }
 ITENS.forEach(i=>{ i.art = arteDe(i); });
 function gCombo(tipo){
-  const main = tipo==="pizza" ? `<g transform="translate(0,26) scale(.62)">${gPizza(PZ.calabresa)}</g>` : `<g transform="translate(0,24) scale(.64)">${gBurger({bacon:1,tomate:1})}</g>`;
+  if (FOTO.combobacon) return "IMG:fotos/"+FOTO.combobacon+".jpg";
+  const main = tipo==="pizza" ? `<g transform="translate(0,26) scale(.62)">${pzArte("calabresa")}</g>` : `<g transform="translate(0,24) scale(.64)">${gBurger({bacon:1,tomate:1})}</g>`;
   return `<g transform="translate(56,4) scale(.46)">${gLata("#E4262A")}</g><g transform="translate(42,34) scale(.56)">${gFritas()}</g>${main}`;
 }
 ITENS.forEach(i=>{ if(!i.art) i.art = gCombo("burger"); });
@@ -905,8 +930,8 @@ const ORDEM_CATS = ["lanches","combos","pizzas","bebidas","porcoes","sucos"];
 const CURTO = {lanches:"Lanches",combos:"Combos",pizzas:"Pizzas",bebidas:"Bebidas",porcoes:"Porções",sucos:"Sucos"};
 const CATS_APP = ORDEM_CATS.map(id=>CATS.find(c=>c.id===id));
 function artCat(id){
-  return ({lanches:gBurger({bacon:1,tomate:1}), combos:gCombo("burger"), pizzas:gPizza(PZ.calabresa), bebidas:gLata("#E4262A"),
-    porcoes:gFritas({cheddar:1}), sucos:gCopo("#F7A21E",{fruta:"#F7C948"}), tudo:gPizza(PZ.americana)})[id];
+  return ({lanches:"IMG:fotos/x_bacon.jpg", combos:gCombo("burger"), pizzas:pzArte("calabresa"), bebidas:"IMG:fotos/cocalata.jpg",
+    porcoes:"IMG:fotos/batata_cheddar.jpg", sucos:"IMG:fotos/suco.jpg", tudo:pzArte("americana")})[id];
 }
 /* "seu último pedido" = EXEMPLO (no app real ficaria guardado no celular do cliente) */
 S.ultimo = [linha("xtudo",2,"sem alface"), linha("batatafrita",1,"Grande",32.9), linha("coca2l",1,"")];
@@ -945,7 +970,7 @@ function cartBtn(){
   return `<button class="cartbtn" id="cartbtn" onclick="ir('carrinho')" aria-label="Carrinho">${ic("cart")}<span class="badge ${n?"":"zero"}" id="badge">${n}</span></button>`;
 }
 /* topo das abas: SÓ logo no centro + carrinho (nenhum menu — pedido do Cassiano) */
-function topo(){ return `<header class="topo" id="topo"><span></span><button class="marca" onclick="ir('inicio')" aria-label="Início"><span class="pop">POP</span><small>LANCHES &amp; PIZZAS</small></button>${cartBtn()}</header>`; }
+function topo(){ return `<header class="topo" id="topo"><span></span><button class="marca" onclick="ir('inicio')" aria-label="Início"><img class="logo-pop" src="logo_pop.jpg" alt="POP Lanches e Pizzas"></button>${cartBtn()}</header>`; }
 /* topo das telas de dentro: voltar + título + carrinho */
 function topoVolta(titulo, destino){ return `<header class="topo solid" id="topo"><button class="voltar" onclick="ir('${destino}')" aria-label="Voltar">${ic("volta")}</button><h2>${esc(titulo)}</h2>${cartBtn()}</header>`; }
 
@@ -1020,8 +1045,8 @@ function tagCurta(t){ return t ? `<span class="tag ${t==="promo"?"pr":t}">${{mai
 function telaInicio(){
   let h = strip() + topo();
   h += `<section class="capa">
-    <div class="a-pizza">${SV(gPizza(PZ.calabresa))}</div>
-    <div class="a-burger">${SV(gBurger({bacon:1,tomate:1,ovo:1}))}</div>
+    <div class="a-pizza">${SV(pzArte("calabresa"))}</div>
+    <div class="a-burger">${SV("IMG:fotos/"+(FOTO.xtudo||"x_tudo")+".jpg")}</div>
     <div class="capa-txt"><span class="rotulo">Lanches e pizzas · Jataí-GO</span>
       <h1>Lanche e pizza<br><em>do jeito POP</em></h1>
       <p>Feito na hora, com capricho, do balcão pra sua casa.</p>
@@ -1049,8 +1074,8 @@ function telaInicio(){
   return h;
 }
 function selo(){
-  return `<div class="selo-pe">🧪 <b>Proposta ilustrativa da ZELES para o POP.</b> Cardápio e preços <b>transcritos do story do POP de 31/12/2025</b> — conferir com o balcão antes de publicar. Taxas, tempos, destaques e pedidos de exemplo são <b>fictícios</b>. Pagamento simulado: nada é cobrado.</div>
-    <p class="fonte">POP Lanches e Pizzas · Jataí/GO · prévia de app v4 (cardápio real) · ZELES · Inteligência aplicada</p>`;
+  return `<div class="selo-pe">🧪 <b>Proposta ilustrativa da ZELES para o POP.</b> Cardápio e preços <b>transcritos do story do POP de 31/12/2025</b> — conferir com o balcão antes de publicar. Taxas, tempos, destaques e pedidos de exemplo são <b>fictícios</b>. Pagamento simulado: nada é cobrado.<br>📷 <b>Fotos:</b> fotos reais de lojas bem avaliadas do iFood (Goiânia), usadas <b>só para ilustrar esta prévia</b> — não vão para o site do POP. No site de verdade entram as fotos do próprio POP, feitas numa sessão de fotos profissional.</div>
+    <p class="fonte">POP Lanches e Pizzas · Jataí/GO · prévia de app v6 (fotos reais e cores da logo) · ZELES · Inteligência aplicada</p>`;
 }
 
 /* ============ TELA: CARDÁPIO ============ */
@@ -1117,10 +1142,10 @@ function usaSugestao(s){ const i=$("#q"); if(i) i.value=s; buscar(s); }
 /* ============ TELA: PRODUTO (DETALHE b: disco meia a meia) ============ */
 let _disco = 0, _discoUlt = "";
 function discoSvg(sab){
-  if (sab.length<2) return gPizza(PZ[sab[0]]);
+  if (sab.length<2) return pzArte(sab[0]);
   const k = ++_disco;
   return `<defs><clipPath id="dL${k}"><rect x="0" y="0" width="50" height="100"/></clipPath><clipPath id="dR${k}"><rect x="50" y="0" width="50" height="100"/></clipPath></defs>
-    <g clip-path="url(#dL${k})">${gPizza(PZ[sab[0]])}</g><g clip-path="url(#dR${k})">${gPizza(PZ[sab[1]])}</g>
+    <g clip-path="url(#dL${k})">${pzArte(sab[0])}</g><g clip-path="url(#dR${k})">${pzArte(sab[1])}</g>
     <line x1="50" y1="4" x2="50" y2="96" stroke="#fff" stroke-width="1.6" stroke-dasharray="3 2.4"/>`;
 }
 function telaProduto(id){
@@ -1148,7 +1173,7 @@ function telaProduto(id){
     if (m.sabores.length===2) h += `<div class="meias">${[0,1].map(k=>`<button class="${m.ativa===k?"on":""}" onclick="montagem.ativa=${k};render()"><small>${k?"◑ metade 2":"◐ metade 1"}</small>${esc(item(m.sabores[k]).nome)}</button>`).join("")}</div>
       <p class="note" style="margin:-4px 0 10px">Toque na metade e escolha o sabor dela. Qualquer combinação: ${brl(PIZZA.preco)}.</p>`;
     h += `<div class="sabores">${grupo.map(s=>{ const pos = m.sabores.indexOf(s.id);
-        return `<button class="${pos>=0?"on":""}" data-sabor="${s.id}" onclick="escolheSabor('${s.id}')">${SV(gPizza(PZ[s.id]))}<span>${esc(s.nome)}${s.doce?'<br><small style="color:var(--ink2);font-weight:500">doce</small>':""}</span>${pos>=0&&m.sabores.length===2?`<span class="n">${pos+1}</span>`:""}</button>`; }).join("")}</div></div>`;
+        return `<button class="${pos>=0?"on":""}" data-sabor="${s.id}" onclick="escolheSabor('${s.id}')">${SV(pzArte(s.id))}<span>${esc(s.nome)}${s.doce?'<br><small style="color:var(--ink2);font-weight:500">doce</small>':""}</span>${pos>=0&&m.sabores.length===2?`<span class="n">${pos+1}</span>`:""}</button>`; }).join("")}</div></div>`;
   }
   if (it.tipo==="lanche"){
     h += `<div class="bloco"><h3>Turbine seu lanche <span class="rule">adicionais do cardápio · opcional</span></h3>
