@@ -4,10 +4,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
-<meta name="previa-commit" content="5d4275a15534">
+<meta name="previa-commit" content="0056da96d7bc">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1a1414">
-<title>POP Lanches e Pizzas — prévia do app v10 (ZELES)</title>
+<title>POP Lanches e Pizzas — prévia do app v11 (ZELES)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;0,800;0,900;1,800;1,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -539,6 +539,12 @@ img.foto{width:100%;height:100%;object-fit:cover;display:block;border-radius:inh
 @keyframes tremer{0%,100%{transform:translateX(0)}15%,45%,75%{transform:translateX(-6px)}30%,60%,90%{transform:translateX(6px)}}
 .treme-falta{animation:tremer .45s ease-in-out 1}
 @media (prefers-reduced-motion:reduce){.treme-falta{animation:none}}
+
+/* v11: caixinhas menores e mais arredondadas (audio 3346) */
+.opt input{-webkit-appearance:none;appearance:none;width:17px;height:17px;border:1.5px solid #cdbfb3;border-radius:6px;background:#fff;
+  display:grid;place-items:center;cursor:pointer;transition:background .15s,border-color .15s;margin:0}
+.opt input:checked{background:var(--red) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3.5 8.5l3 3 6-7'/%3E%3C/svg%3E") center/12px no-repeat;border-color:var(--red)}
+.quer-tirar{margin:0 0 8px;border-top:0}
 </style>
 </head>
 <body>
@@ -1145,13 +1151,11 @@ function telaProduto(id){
     h += `<div class="bloco"><h3>Turbine seu lanche <span class="rule">adicionais do cardápio · opcional</span></h3>
       ${ADICIONAIS.map(a=>`<label class="opt"><span>${esc(a[1])}</span><span class="r">+ ${brl(a[2])}</span><input type="checkbox" data-adic="${a[0]}" ${m.add.includes(a[0])?"checked":""} onchange="togLista('add','${a[0]}',this)"></label>`).join("")}</div>`;
     const ing = ingredientes(it);
-    if (ing.length) h += `<div class="bloco" id="bloco-tirar"><h3>Ingredientes <span class="rule req">obrigatório</span></h3><div class="chipsx">
-      <button class="completo ${m.completo?"on":""}" onclick="escolheCompleto()">Completo, sem tirar nada</button></div>
-      <label class="opt quer-tirar" id="quer-tirar"><span>Tirar algum ingrediente</span><input type="checkbox" ${m.querTirar?"checked":""} onchange="marcaTirar(this.checked)"></label>
+    if (ing.length) h += `<div class="bloco" id="bloco-tirar">
+      <label class="opt quer-tirar" id="quer-tirar"><span>Deseja remover algum ingrediente?</span><input type="checkbox" ${m.querTirar?"checked":""} onchange="marcaTirar(this.checked)"></label>
       <div class="chipsx tirar-lista ${m.querTirar?"":"travada"}">${ing.map(s=>`<button class="${m.tirar.includes(s)?"on":""}" onclick="togTirar('${s.replace(/'/g,"")}')">Sem ${esc(s)}</button>`).join("")}</div></div>`;
-    h += `<div class="bloco" id="bloco-molho"><h3>Molho <span class="rule req">obrigatório</span> <span class="ilus">exemplo: confirmar os molhos com o POP</span></h3><div class="chipsx">
-      ${MOLHOS.map(s=>`<button class="${m.molhos.includes(s)?"on":""}" data-molho="${s}" onclick="togMolho('${s}')">${esc(s)}</button>`).join("")}
-      <button class="${m.molhos.includes("Sem molho")?"on":""}" data-molho="Sem molho" onclick="togMolho('Sem molho')">Sem molho</button></div></div>`;
+    h += `<div class="bloco" id="bloco-molho"><h3>Molho <span class="rule req">obrigatório</span> <span class="ilus">exemplo: confirmar os molhos com o POP</span></h3>
+      ${MOLHOS.concat(["Sem molho"]).map(s=>`<label class="opt"><span>${s==="Sem molho"?"Não quero molho":esc(s)}</span><input type="checkbox" data-molho="${s}" ${m.molhos.includes(s)?"checked":""} onchange="togMolho('${s}')"></label>`).join("")}</div>`;
   }
   if (it.tipo==="variante"){
     h += `<div class="bloco"><h3>Tamanho <span class="rule ${it.tams.length>1?"req":""}">${it.tams.length>1?"obrigatório":"único"}</span></h3><div class="segs" style="grid-template-columns:repeat(${it.tams.length},1fr)">
@@ -1180,10 +1184,10 @@ function escolheSabor(s){
   if (m.ativa===0) m.ativa = 1;
   render();
 }
-const MOLHOS = ["Maionese temperada", "Maionese", "Ketchup"];  /* v10: EXEMPLO - o cardapio do POP nao lista molho */
+const MOLHOS = ["Ketchup", "Maionese", "Maionese temperada"];  /* v11: a ordem dele (audio 3345) */  /* v10: EXEMPLO - o cardapio do POP nao lista molho */
 function treme(el){ if(!el) return; el.classList.remove('treme-falta'); void el.offsetWidth; el.classList.add('treme-falta'); }
 function togTirar(s){ if(!montagem.querTirar){ treme($('#bloco-tirar')); const q=$('#quer-tirar'); if(q) q.classList.add('faltou');
-    toast('Marque primeiro: Tirar algum ingrediente.'); return; }
+    toast('Marque primeiro: Deseja remover algum ingrediente?'); return; }
   const a=montagem.tirar; const i=a.indexOf(s); if(i>=0) a.splice(i,1); else a.push(s); render(); }
 function marcaTirar(v){ montagem.querTirar=v; if(v) montagem.completo=false; else montagem.tirar=[]; render(); }
 function escolheCompleto(){ montagem.completo=!montagem.completo; if(montagem.completo){ montagem.tirar=[]; montagem.querTirar=false; } render(); }
@@ -1192,15 +1196,15 @@ function togMolho(s){ const m=montagem; let a=m.molhos; const i=a.indexOf(s);
   render(); }
 function addCarrinho(){
   const it = item(montagem.id), m = montagem;
-  if (it.tipo==="lanche" && ingredientes(it).length && !m.completo && !m.tirar.length){ toast(m.querTirar ? "Escolha o que tirar." : "Escolha: completo ou tirar algum ingrediente."); const b=$("#bloco-tirar"); if(b){ b.scrollIntoView({behavior:"smooth",block:"center"}); treme(b); } return; }
-  if (it.tipo==="lanche" && !m.molhos.length){ toast("Escolha o molho."); const b=$("#bloco-molho"); if(b){ b.scrollIntoView({behavior:"smooth",block:"center"}); treme(b); } return; }
+  if (it.tipo==="lanche" && m.querTirar && !m.tirar.length){ toast("Escolha o que remover (ou desmarque a caixinha)."); const b=$("#bloco-tirar"); if(b){ b.scrollIntoView({behavior:"smooth",block:"center"}); treme(b); } return; }
+  if (it.tipo==="lanche" && !m.molhos.length){ toast("Marque o molho, ou: Não quero molho."); const b=$("#bloco-molho"); if(b){ b.scrollIntoView({behavior:"smooth",block:"center"}); treme(b); } return; }
   if (it.tipo==="variante" && it.sabores && !m.sabor){ toast("Escolha o sabor."); const b=$("#bloco-sab"); if(b) b.scrollIntoView({behavior:"smooth",block:"center"}); return; }
   let det = [], nome = it.nome;
   if (it.tipo==="pizza"){
     nome = "Pizza " + item(m.sabores[0]).nome + (m.sabores.length===2 ? " + " + item(m.sabores[1]).nome : "");
     det.push(PIZZA.tamanho + " " + PIZZA.pedacos + " pedaços · " + (m.sabores.length===2 ? "meia "+item(m.sabores[0]).nome+" / meia "+item(m.sabores[1]).nome : item(m.sabores[0]).nome));
   }
-  if (it.tipo==="lanche"){ if (m.add.length) det.push("+ "+m.add.map(k=>ADICIONAIS.find(x=>x[0]===k)[1].toLowerCase()).join(", ")); if (m.tirar.length) det.push("sem "+m.tirar.join(", ")); else if (m.completo) det.push("completo, sem tirar nada"); if (m.molhos.length) det.push(m.molhos[0]==="Sem molho" ? "sem molho" : "molho: "+m.molhos.join(", ").toLowerCase()); }
+  if (it.tipo==="lanche"){ if (m.add.length) det.push("+ "+m.add.map(k=>ADICIONAIS.find(x=>x[0]===k)[1].toLowerCase()).join(", ")); if (m.tirar.length) det.push("sem "+m.tirar.join(", ")); else det.push("completo"); if (m.molhos.length) det.push(m.molhos[0]==="Sem molho" ? "sem molho" : "molho: "+m.molhos.join(", ").toLowerCase()); }
   if (it.tipo==="variante"){ det.push(it.tams[m.tamIx].nome); if (m.sabor) nome = it.nome + " · " + m.sabor; }
   if (m.obs) det.push("Obs.: "+m.obs);
   juntaNoCarrinho({id:it.id, nome, det:det.join(" · "), qtd:m.qtd, pu:precoMontagem(it,m)});
