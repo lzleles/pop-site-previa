@@ -4,10 +4,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
-<meta name="previa-commit" content="4261fcb2ad8e">
+<meta name="previa-commit" content="e7b1a1fab782">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1a1414">
-<title>POP Lanches e Pizzas — prévia do app v15 (ZELES)</title>
+<title>POP Lanches e Pizzas — prévia do app v16 (ZELES)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;0,800;0,900;1,800;1,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -552,6 +552,36 @@ img.foto{width:100%;height:100%;object-fit:cover;display:block;border-radius:inh
 /* v14: o bloco que falta fica com as letras vermelhas ate ser respondido (audios 3360/3361) */
 .bloco.faltou h3,.bloco.faltou h3 .rule,.bloco.faltou .opt span,.bloco.faltou .chipsx button{color:var(--red)}
 .bloco.faltou .opt input{border-color:var(--red)}
+
+/* v16 */
+.price small.dif,.pr small.dif{display:block;font-weight:500;color:var(--ink2);font-size:11px;margin-top:1px}
+.opt.indisp{opacity:.38}
+.opt.indisp input{cursor:not-allowed}
+.quer-tirar.faltou input{border-color:var(--red);border-width:2px;box-shadow:0 0 0 3px rgba(246,42,37,.18)}
+.acomp-op{border-top:1px solid #f3ece6}
+.acomp-op:first-of-type{border-top:0}
+.acomp-l{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;border:0;background:none;padding:10px 2px;font:inherit;color:var(--ink);text-align:left}
+.acomp-l .an{display:flex;flex-direction:column}
+.acomp-l .an small.dif{font-size:11px;color:var(--ink2);font-weight:500}
+.acomp-l .ap{font-weight:700;font-size:13px;white-space:nowrap}
+.acomp-op.on .acomp-l .an > span{font-weight:700}
+.tamx{display:inline-grid;place-items:center;min-width:20px;height:20px;border-radius:6px;background:var(--red);color:#fff;font-size:11px;margin-left:4px;padding:0 4px}
+.acomp-tams{display:flex;gap:8px;padding:0 0 12px}
+.acomp-tams button{flex:1;border:2px solid #efe4da;background:#fff;border-radius:12px;padding:8px 4px;text-align:center;color:var(--ink);font:inherit}
+.acomp-tams button b{display:block;font-size:13px}
+.acomp-tams button em{display:block;font-style:normal;font-weight:700;font-size:12px;color:var(--ink2)}
+.acomp-tams button.on{border-color:var(--red);background:#fff4f2}
+.acomp-tams button.tira{flex:.7;color:var(--red-d)}
+.pd-capa.fixa{position:sticky;top:0;z-index:6;padding:66px 16px 16px;border-radius:0 0 26px 26px}
+.pd-capa.fixa .pd-arte{width:180px;height:180px}
+.pd-folha.sob-fixa{margin-top:0;border-radius:0}
+.perg{position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.5);display:grid;place-items:end center}
+.perg-box{width:100%;max-width:420px;background:#fff;border-radius:22px 22px 0 0;padding:22px 16px calc(18px + env(safe-area-inset-bottom));box-shadow:0 -10px 30px rgba(0,0,0,.25)}
+.perg-box h3{margin:0 0 16px;font-size:18px;text-align:center}
+.perg-bts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.perg-bts button{border:0;border-radius:14px;padding:14px;font:inherit;font-weight:700;font-size:15px}
+.perg-bts .nao{background:#f3ece6;color:var(--ink)}
+.perg-bts .sim{background:var(--red);color:#fff}
 </style>
 </head>
 <body>
@@ -1041,7 +1071,7 @@ function telaInicio(){
   const mais = ["xtudo","calabresa","batatabaconcheddar","xfilematador","frangocatupiry","combobacon"].map(item);
   h += `<div class="sec-h"><h2>Destaques <span class="ilus">escolha ilustrativa</span></h2><button onclick="ir('cardapio-tudo')">Ver todos ${ic("seta")}</button></div>
     <div class="mp">${mais.map(it=>`<div class="mpc" onclick="ir('produto-${it.id}')"><div class="mpc-img">${SV(it.art)}</div>
-      <div class="mpc-b"><b>${esc(it.nome)}</b><p>${esc(it.desc)}</p><div class="mpc-f"><span class="pr">${it.tipo==="variante"&&it.tams.length>1?"<small>a partir de</small>":it.tipo==="pizza"?"<small>grande 8 pedaços</small>":""}${brl(aPartir(it))}</span>
+      <div class="mpc-b"><b>${esc(it.nome)}</b><p>${esc(it.desc)}</p><div class="mpc-f"><span class="pr">${it.tipo==="pizza"?"<small>grande 8 pedaços</small>":""}${brl(aPartir(it))}${it.tipo==="variante"&&it.tams.length>1?`<small class="dif">${difTxt(it.tams)}</small>`:""}</span>
       <button class="addb" data-add="${it.id}" onclick="quickAdd('${it.id}',event)" aria-label="Adicionar ${esc(it.nome)}">${ic("mais","stroke-width='2.6'")}</button></div></div></div>`).join("")}</div>`;
   const cf = item("combobacon");
   h += `<div class="combo" onclick="ir('cardapio-combos')"><div class="selo-r">BATATA<b>+</b>REFRI</div><div class="cb-arte">${SV(gCombo("burger"))}</div>
@@ -1449,6 +1479,176 @@ function render(){
 function rolagem(){ const t=$("#topo"); if (t && !t.classList.contains("solid")) t.classList.toggle("rolou", window.scrollY>30); }
 window.addEventListener("scroll", rolagem, {passive:true});
 window.addEventListener("hashchange", ()=>{ render(); window.scrollTo(0,0); rolagem(); });
+
+/* =====================================================================================
+   v16 — a LEVA do Cassiano (áudios 3370–3418, 28/09/2026). As funções de tela abaixo
+   SUBSTITUEM as de mesmo nome declaradas acima (na mesma <script>, a última vence).
+   ===================================================================================== */
+/* (8) sem "Copo especial" */
+{ const i = ITENS.findIndex(x=>x.id==="copoespecial"); if (i>=0) ITENS.splice(i,1); }
+/* (12) Bebidas e Sucos = um menu só: Bebidas (refrigerantes, sucos e vitaminas, cremes) */
+ITENS.forEach(i=>{ if (i.cat==="sucos") i.cat = "bebidas"; });
+{ const b = CATS.find(c=>c.id==="bebidas"); b.sub = "Refrigerantes, sucos, vitaminas e cremes."; b.grupos = ["bebidas","sucos","cremes"];
+  const k = CATS.findIndex(c=>c.id==="sucos"); if (k>=0) CATS.splice(k,1);
+  const j = CATS_APP.findIndex(c=>c.id==="sucos"); if (j>=0) CATS_APP.splice(j,1); }
+TITULO_GRUPO.bebidas = "Refrigerantes";
+/* (13) a descrição "Pequena R$ x · Grande R$ y" sai: o preço agora fica no lugar do preço */
+ITENS.forEach(i=>{ if (i.tipo==="variante" && !i.sabores && /R\$/.test(i.desc)) i.desc = ""; });
+/* (6) combo abre a montagem do lanche dele */
+ITENS.forEach(i=>{ if (i.cat==="combos") i.tipo = "combo"; });
+/* (7) refri do combo = as latas do cardápio (o Moisés confirma quais tem) */
+const REFRI_COMBO = ITENS.filter(i=>i.cat==="bebidas" && /lata/i.test(i.nome)).map(i=>i.nome);
+/* (3) acompanhamentos do lanche: nome dele (áudio 3390), preço do cardápio (porções) */
+const ACOMP = [["batatafrita","Batata frita"],["batatabaconcheddar","Batata com cheddar e bacon"],
+  ["batatabaconmussarela","Batata com bacon e mussarela"],["batatacalabresa","Batata com calabresa"]]
+  .map(([id,nome])=>({id, nome, tams:[...item(id).tams].sort((a,b)=>a.preco-b.preco)}));
+
+/* (13) "Grande + R$ 9,00" = a diferença pro menor preço */
+function difTxt(tams){ const t=[...tams].sort((a,b)=>a.preco-b.preco); return t.slice(1).map(x=>`${esc(x.nome)} + ${brl(x.preco-t[0].preco)}`).join(" · "); }
+function precoTxt(it){
+  if (it.tipo==="pizza") return `${brl(PIZZA.preco)} <small>· grande ${PIZZA.pedacos} pedaços</small>`;
+  if (it.tipo==="variante") return it.tams.length>1 ? `${brl(it.preco)}<small class="dif">${difTxt(it.tams)}</small>` : `${brl(it.preco)} <small>· ${esc(it.tams[0].nome)}</small>`;
+  return brl(it.preco);
+}
+function precoMontagem(it, m){
+  if (it.tipo==="pizza") return PIZZA.preco;
+  if (it.tipo==="lanche" || it.tipo==="combo"){
+    const add = m.add.reduce((a,k)=>a+ADICIONAIS.find(x=>x[0]===k)[2],0);
+    const acomp = it.tipo==="lanche" ? Object.entries(m.acomp||{}).reduce((a,[id,ix])=>a+ACOMP.find(x=>x.id===id).tams[ix].preco,0) : 0;
+    return it.preco + add + acomp;
+  }
+  if (it.tipo==="variante") return it.tams[m.tamIx].preco;
+  return it.preco;
+}
+function quickAdd(id, ev){
+  if (ev) ev.stopPropagation();
+  const it = item(id);
+  if (S.esgotado[id]) { toast("Esgotado hoje."); return; }
+  if (["pizza","variante","lanche","combo"].includes(it.tipo)){ ir("produto-"+id); return; }
+  juntaNoCarrinho({id, nome:it.nome, det:"", qtd:1, pu:it.preco});
+  const cf = $("#cartfloat"); if (cf) { cf.classList.remove("off"); }
+  voar(ev && ev.currentTarget);
+  if (!$("#cartbtn")) atualizaCarrinhoUI(true);
+}
+/* (10) ingredientes da pizza = só os dos sabores escolhidos (meia a meia junta os dois, sem repetir) */
+function ingPizza(m){ const out=[]; m.sabores.forEach(s=>ingredientes(item(s)).forEach(x=>{ if(!out.includes(x)) out.push(x); })); return out; }
+function blocoTirar(ing, m){
+  return `<div class="bloco ${m.falta&&m.falta.tirar&&m.querTirar&&!m.tirar.length?"faltou":""}" id="bloco-tirar">
+    <label class="opt quer-tirar" id="quer-tirar"><span>Deseja remover algum ingrediente?</span><input type="checkbox" ${m.querTirar?"checked":""} onchange="marcaTirar(this.checked)"></label>
+    <div class="chipsx tirar-lista ${m.querTirar?"":"travada"}">${ing.map(s=>`<button class="${m.tirar.includes(s)?"on":""}" onclick="togTirar('${s.replace(/'/g,"")}')">Sem ${esc(s)}</button>`).join("")}</div></div>`;
+}
+function telaProduto(id){
+  const it = item(id);
+  if (!it) return telaInicio();
+  if (montagem.id!==id) montagem = {id, sabores:[id], ativa:0, tirar:[], add:[], tamIx:0, sabor:null, qtd:1, obs:"", completo:false, querTirar:false, molhos:[], acomp:{}, abreAcomp:null, refri:null};
+  const m = montagem, pizza = it.tipo==="pizza";
+  let h = strip() + topoVolta(CATS.find(c=>c.id===it.cat).nome, S.voltar);
+  let arte = SV(it.art), chave = it.id;
+  if (pizza){ arte = SV(discoSvg(m.sabores)); chave = m.sabores.join("|"); }
+  const gira = pizza && _discoUlt.startsWith(it.id+"#") && _discoUlt!==it.id+"#"+chave;
+  chave = it.id+"#"+chave;
+  _discoUlt = chave;
+  /* (9) pizza: a imagem fica fixa no topo e o resto passa por trás dela */
+  h += `<div class="pd-capa ${pizza?"fixa":""}"><div class="pd-arte ${gira?"gira":""}" id="disco">${arte}</div>
+    ${pizza&&m.sabores.length===2?`<div class="metades"><span>◐ ${esc(item(m.sabores[0]).nome)}</span><span>${esc(item(m.sabores[1]).nome)} ◑</span></div>`:""}</div>`;
+  h += `<div class="pd-folha ${pizza?"sob-fixa":""}">${it.num?`<span class="num">Nº ${it.num} no cardápio</span>`:""}<h1>${pizza&&m.sabores.length===2?"Meia "+esc(item(m.sabores[0]).nome)+" / meia "+esc(item(m.sabores[1]).nome):esc(it.nome)}</h1><p class="desc">${esc(pizza&&m.sabores.length===2?item(m.sabores[0]).desc+" · "+item(m.sabores[1]).desc:it.desc)}</p>`;
+  if (it.conferir) h += `<p class="note conf-n"><b>Conferir com o POP:</b> ${esc(it.conferir)}</p>`;
+  if (pizza){
+    const grupo = ITENS.filter(i=>i.cat==="pizzas");
+    h += `<div class="bloco"><h3>Tamanho</h3><div class="tam-unico"><b>${PIZZA.tamanho}</b><span>${PIZZA.pedacos} pedaços</span><em>${brl(PIZZA.preco)}</em></div></div>`;
+    h += `<div class="bloco" id="bloco-sabor"><h3>Sabor <span class="rule req">obrigatório</span></h3>
+      <div class="modo"><button class="${m.sabores.length===1?"on":""}" onclick="modoSabor(1)">1 sabor</button><button id="btn-meia" class="${m.sabores.length===2?"on":""}" onclick="modoSabor(2)">Meia a meia</button></div>`;
+    if (m.sabores.length===2) h += `<div class="meias">${[0,1].map(k=>`<button class="${m.ativa===k?"on":""}" onclick="montagem.ativa=${k};render()"><small>${k?"◑ metade 2":"◐ metade 1"}</small>${esc(item(m.sabores[k]).nome)}</button>`).join("")}</div>
+      <p class="note" style="margin:-4px 0 10px">Toque na metade e escolha o sabor dela. Qualquer combinação: ${brl(PIZZA.preco)}.</p>`;
+    h += `<div class="sabores">${grupo.map(s=>{ const pos = m.sabores.indexOf(s.id);
+        return `<button class="${pos>=0?"on":""}" data-sabor="${s.id}" onclick="escolheSabor('${s.id}')">${SV(pzArte(s.id))}<span>${esc(s.nome)}${s.doce?'<br><small style="color:var(--ink2);font-weight:500">doce</small>':""}</span>${pos>=0&&m.sabores.length===2?`<span class="n">${pos+1}</span>`:""}</button>`; }).join("")}</div></div>`;
+    const ing = ingPizza(m);
+    m.tirar = m.tirar.filter(x=>ing.includes(x));      /* trocou o sabor: some o que não é mais dele */
+    if (ing.length) h += blocoTirar(ing, m);
+  }
+  if (it.tipo==="lanche" || it.tipo==="combo"){
+    const lanche = it.tipo==="combo" ? (item(it.lanche) || it) : it;
+    h += `<div class="bloco"><h3>Turbine seu lanche</h3>
+      ${ADICIONAIS.map(a=>`<label class="opt"><span>${esc(a[1])}</span><span class="r">+ ${brl(a[2])}</span><input type="checkbox" data-adic="${a[0]}" ${m.add.includes(a[0])?"checked":""} onchange="togLista('add','${a[0]}',this)"></label>`).join("")}</div>`;
+    const ing = ingredientes(lanche);
+    if (ing.length) h += blocoTirar(ing, m);
+    /* (2) molho exclusivo */
+    const temMolho = m.molhos.some(s=>s!=="Sem molho"), semMolho = m.molhos.includes("Sem molho");
+    h += `<div class="bloco ${m.falta&&m.falta.molho&&!m.molhos.length?"faltou":""}" id="bloco-molho"><h3>Molho <span class="rule req">obrigatório</span></h3>
+      ${MOLHOS.concat(["Sem molho"]).map(s=>{ const indisp = s==="Sem molho" ? temMolho : semMolho;
+        return `<label class="opt ${indisp?"indisp":""}"><span>${s==="Sem molho"?"Não quero molho":esc(s)}</span><input type="checkbox" data-molho="${s}" ${m.molhos.includes(s)?"checked":""} ${indisp?"disabled":""} onchange="togMolho('${s}')"></label>`; }).join("")}</div>`;
+    if (it.tipo==="lanche"){
+      /* (3) acompanhamentos: toca -> P ou G; escolheu -> fecha e mostra P/G ao lado do nome */
+      h += `<div class="bloco" id="bloco-acomp"><h3>Acompanhamentos</h3>${ACOMP.map(a=>{ const sel = m.acomp[a.id], t = a.tams, aberto = m.abreAcomp===a.id;
+        return `<div class="acomp-op ${sel!=null?"on":""} ${aberto?"aberto":""}"><button class="acomp-l" data-acomp="${a.id}" onclick="abreAcomp('${a.id}')"><span class="an"><span>${esc(a.nome)}${sel!=null?` <b class="tamx">${esc(t[sel].nome[0])}</b>`:""}</span><small class="dif">${difTxt(t)}</small></span><span class="ap">${brl(sel!=null?t[sel].preco:t[0].preco)}</span></button>
+          ${aberto?`<div class="acomp-tams">${t.map((x,i)=>`<button class="${sel===i?"on":""}" data-acomp-tam="${i}" onclick="escolheAcomp('${a.id}',${i})"><b>${esc(x.nome)}</b><em>${i?"+ "+brl(x.preco-t[0].preco):brl(x.preco)}</em></button>`).join("")}${sel!=null?`<button class="tira" onclick="escolheAcomp('${a.id}',null)"><b>Tirar</b></button>`:""}</div>`:""}</div>`; }).join("")}</div>`;
+    } else {
+      /* (7) combo: refrigerante obrigatório */
+      h += `<div class="bloco ${m.falta&&m.falta.refri&&!m.refri?"faltou":""}" id="bloco-refri"><h3>Refrigerante <span class="rule req">obrigatório</span></h3>
+        ${REFRI_COMBO.map(r=>`<label class="opt"><span>${esc(r)}</span><input type="checkbox" data-refri="${esc(r)}" ${m.refri===r?"checked":""} onchange="montagem.refri=this.checked?'${r.replace(/'/g,"")}':null;render()"></label>`).join("")}</div>`;
+    }
+  }
+  if (it.tipo==="variante"){
+    /* (13) o menor preço na frente; os outros tamanhos mostram só a diferença */
+    const t0 = Math.min(...it.tams.map(t=>t.preco));
+    h += `<div class="bloco"><h3>Tamanho${it.tams.length>1?' <span class="rule req">obrigatório</span>':""}</h3><div class="segs" style="grid-template-columns:repeat(${it.tams.length},1fr)">
+      ${it.tams.map((t,i)=>`<button class="${m.tamIx===i?"on":""}" data-tam="${i}" onclick="montagem.tamIx=${i};render()"><b>${esc(t.nome)}</b><em>${t.preco>t0?"+ "+brl(t.preco-t0):brl(t.preco)}</em></button>`).join("")}</div></div>`;
+    if (it.sabores) h += `<div class="bloco ${m.falta&&m.falta.sab&&!m.sabor?"faltou":""}" id="bloco-sab"><h3>Sabor <span class="rule req">obrigatório</span></h3><div class="chipsx">
+      ${it.sabores.map(sb=>`<button class="${m.sabor===sb?"on":""}" data-sab="${esc(sb)}" onclick="montagem.sabor='${sb}';render()">${esc(sb)}</button>`).join("")}</div></div>`;
+  }
+  h += `<div class="bloco"><h3>Observação</h3><textarea oninput="montagem.obs=this.value">${esc(m.obs)}</textarea></div></div>`;
+  const pu = precoMontagem(it, m);
+  h += `<div class="pd-bar"><div class="qty"><button onclick="montagem.qtd=Math.max(1,montagem.qtd-1);render()">−</button><b>${m.qtd}</b><button onclick="montagem.qtd++;render()">+</button></div>
+    <button class="big" id="btn-add" onclick="addCarrinho()"><span>Adicionar</span><span>${brl(pu*m.qtd)}</span></button></div>`;
+  return h;
+}
+function abreAcomp(id){ montagem.abreAcomp = montagem.abreAcomp===id ? null : id; render(); }
+function escolheAcomp(id, ix){ const m = montagem; if (ix==null) delete m.acomp[id]; else m.acomp[id] = ix; m.abreAcomp = null; render(); }
+/* (5)(11) tem bebida na comanda? combo já traz refri; suco, vitamina e creme contam */
+function temBebida(){ return S.carrinho.some(x=>{ const i = item(x.id); return i && (i.cat==="bebidas" || i.cat==="combos"); }); }
+function fechaAdd(l, destino){
+  juntaNoCarrinho(l);
+  montagem = {}; _discoUlt = "";
+  S.pulaBadge = true;
+  toast("Adicionado à comanda.");
+  ir(destino);
+}
+function perguntaBebida(l){
+  const d = document.createElement("div"); d.className = "perg"; d.id = "perg-bebida";
+  d.innerHTML = `<div class="perg-box" role="dialog" aria-modal="true" aria-labelledby="perg-t"><h3 id="perg-t">Deseja adicionar bebida?</h3>
+    <div class="perg-bts"><button class="nao" id="beb-nao">Não</button><button class="sim" id="beb-sim">Sim</button></div></div>`;
+  document.body.appendChild(d);
+  d.querySelector("#beb-nao").onclick = () => { d.remove(); fechaAdd(l, S.voltar); };
+  d.querySelector("#beb-sim").onclick = () => { d.remove(); fechaAdd(l, "cardapio-bebidas"); };
+}
+function addCarrinho(){
+  const it = item(montagem.id), m = montagem;
+  const falta = (k, sel) => { m.falta = {...(m.falta||{}), [k]:1}; render(); const b = $(sel); if (b){ b.scrollIntoView({behavior:"smooth",block:"center"}); treme(b); } };
+  const montaLanche = it.tipo==="lanche" || it.tipo==="combo";
+  if ((montaLanche || it.tipo==="pizza") && m.querTirar && !m.tirar.length) return falta("tirar","#bloco-tirar");
+  if (montaLanche && !m.molhos.length) return falta("molho","#bloco-molho");
+  if (it.tipo==="combo" && !m.refri) return falta("refri","#bloco-refri");
+  if (it.tipo==="variante" && it.sabores && !m.sabor) return falta("sab","#bloco-sab");
+  let det = [], nome = it.nome;
+  if (it.tipo==="pizza"){
+    nome = "Pizza " + item(m.sabores[0]).nome + (m.sabores.length===2 ? " + " + item(m.sabores[1]).nome : "");
+    det.push(PIZZA.tamanho + " " + PIZZA.pedacos + " pedaços · " + (m.sabores.length===2 ? "meia "+item(m.sabores[0]).nome+" / meia "+item(m.sabores[1]).nome : item(m.sabores[0]).nome));
+    if (m.tirar.length) det.push("sem "+m.tirar.join(", "));
+  }
+  if (montaLanche){
+    if (m.add.length) det.push("+ "+m.add.map(k=>ADICIONAIS.find(x=>x[0]===k)[1].toLowerCase()).join(", "));
+    det.push(m.tirar.length ? "sem "+m.tirar.join(", ") : "completo");
+    det.push(m.molhos[0]==="Sem molho" ? "sem molho" : "molho: "+m.molhos.join(", ").toLowerCase());
+    if (it.tipo==="lanche"){ const ac = Object.entries(m.acomp||{}); if (ac.length) det.push("+ "+ac.map(([id,ix])=>{ const a = ACOMP.find(x=>x.id===id); return a.nome+" ("+a.tams[ix].nome[0]+")"; }).join(", ")); }
+    if (it.tipo==="combo") det.push("refri: "+m.refri);
+  }
+  if (it.tipo==="variante"){ det.push(it.tams[m.tamIx].nome); if (m.sabor) nome = it.nome + " · " + m.sabor; }
+  if (m.obs) det.push("Obs.: "+m.obs);
+  const l = {id:it.id, nome, det:det.join(" · "), qtd:m.qtd, pu:precoMontagem(it,m)};
+  if ((it.tipo==="lanche" || it.tipo==="pizza") && !temBebida()) { perguntaBebida(l); return; }
+  fechaAdd(l, S.voltar);
+}
+
 render();
 
 </script>
