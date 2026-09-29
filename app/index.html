@@ -4,10 +4,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
-<meta name="previa-commit" content="bdee791659a3">
+<meta name="previa-commit" content="88072c18949a">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1a1414">
-<title>POP Lanches e Pizzas — prévia do app v18 (ZELES)</title>
+<title>POP Lanches e Pizzas — prévia do app v19 (ZELES)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;0,800;0,900;1,800;1,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -598,6 +598,20 @@ img.foto{width:100%;height:100%;object-fit:cover;display:block;border-radius:inh
 .inl-bar{display:flex;gap:10px;align-items:center;margin-top:12px}
 .inl-bar .big{flex:1}
 .bloco.faltou .chipsx button{border-color:var(--red)}
+
+/* v19 */
+.capa.so-logo{padding:78px 18px 30px;display:grid;place-items:center}
+.capa.so-logo:after{display:none}
+.so-logo-img{position:relative;z-index:2;width:210px;height:210px;border-radius:50%;overflow:hidden;box-shadow:0 14px 34px rgba(0,0,0,.5)}
+.so-logo-img img{width:100%;height:100%;object-fit:cover;display:block}
+.pdd{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:12px 16px 6px;scrollbar-width:none}
+.pdd::-webkit-scrollbar{display:none}
+.pdd-c{flex:0 0 84%;scroll-snap-align:start;display:flex;align-items:center;gap:12px;border:0;border-radius:20px;padding:12px;text-align:left;color:#fff;background:linear-gradient(135deg,var(--red) 0%,#b8120f 100%);box-shadow:0 8px 18px rgba(246,42,37,.28);cursor:pointer}
+.pdd-c img{width:74px;height:74px;border-radius:14px;object-fit:cover;flex:none;border:2px solid rgba(255,255,255,.9)}
+.pdd-t{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.pdd-t b{font-size:14px;line-height:1.2;font-weight:700}
+.pdd-p{font-family:var(--serif);font-weight:900;font-size:21px;line-height:1.1;margin-top:2px}
+.pdd-c .pd-quero{align-self:flex-end}
 </style>
 </head>
 <body>
@@ -1062,11 +1076,11 @@ function precoTxt(it){
 }
 function tagCurta(t){ return t ? `<span class="tag ${t==="promo"?"pr":t}">${{mais:"🔥 Mais pedido",novo:"Novo",promo:"Promo"}[t]}</span>` : ""; }
 
-/* v8: Fome do Dia (uma promocao por vez, a do dia da semana; setas/pontos trocam) */
+/* v8: POP do Dia (uma promocao por vez, a do dia da semana; setas/pontos trocam) */
 const PEDIDAS = [{t:"2 X-Tudo + Batata Grande + Mineiro 1,5L",p:"79,90",f:"fotos/combo.jpg",ir:"cardapio-combos"},{t:"Combo Família: Pizza Grande + 2 X-Especial + Batata Grande + Mineiro 1,5L",p:"129,90",f:"fotos/pz_calabresa.jpg",ir:"cardapio-combos"},{t:"Pizza Grande, 8 pedaços, 2 sabores",p:"59,90",f:"fotos/pz_cincoqueijos.jpg",ir:"cardapio-pizzas"}];
 let _pd = new Date().getDay() % PEDIDAS.length;
 function pedidaHTML(){ const p = PEDIDAS[_pd];
-  return `<button class="pd-card" onclick="ir('${p.ir}')"><img src="${p.f}" alt="" loading="lazy"><span class="pd-txt"><small>Fome do Dia</small><b>${p.t}</b><span class="pd-preco">R$ ${p.p}</span></span><span class="pd-quero">Quero ${ic("seta")}</span></button><div class="pd-pontos">${PEDIDAS.map((x,i)=>`<i class="${i===_pd?"on":""}" onclick="_pd=${i};$('#pedida').innerHTML=pedidaHTML()"></i>`).join("")}</div>`; }
+  return `<button class="pd-card" onclick="ir('${p.ir}')"><img src="${p.f}" alt="" loading="lazy"><span class="pd-txt"><small>POP do Dia</small><b>${p.t}</b><span class="pd-preco">R$ ${p.p}</span></span><span class="pd-quero">Quero ${ic("seta")}</span></button><div class="pd-pontos">${PEDIDAS.map((x,i)=>`<i class="${i===_pd?"on":""}" onclick="_pd=${i};$('#pedida').innerHTML=pedidaHTML()"></i>`).join("")}</div>`; }
 /* ============ TELA: INÍCIO ============ */
 function telaInicio(){
   setTimeout(()=>{ const e=$('#pedida'); if(e) e.innerHTML=pedidaHTML(); },0);
@@ -1100,7 +1114,7 @@ function telaInicio(){
 }
 function selo(){
   return `<div class="selo-pe">🧪 <b>Proposta ilustrativa da ZELES para o POP.</b> Cardápio e preços <b>transcritos do story do POP de 31/12/2025</b> — conferir com o balcão antes de publicar. Taxas, tempos, destaques e pedidos de exemplo são <b>fictícios</b>. Pagamento simulado: nada é cobrado.<br>📷 <b>Fotos:</b> fotos reais de lojas bem avaliadas do iFood (Goiânia), usadas <b>só para ilustrar esta prévia</b> — não vão para o site do POP. No site de verdade entram as fotos do próprio POP, feitas numa sessão de fotos profissional.</div>
-    <p class="fonte">POP Lanches e Pizzas · Jataí/GO · prévia de app v8 (comanda e fome do dia) · ZELES · Inteligência aplicada</p>`;
+    <p class="fonte">POP Lanches e Pizzas · Jataí/GO · prévia de app v8 (comanda e pop do dia) · ZELES · Inteligência aplicada</p>`;
 }
 
 /* ============ TELA: CARDÁPIO ============ */
@@ -1754,6 +1768,44 @@ function menosSimples(id, ev){
   if (i<0) return;
   if (S.carrinho[i].qtd>1) S.carrinho[i].qtd--; else S.carrinho.splice(i,1);
   atualizaCarrinhoUI(true); refreshItem(id);
+}
+
+
+/* =====================================================================================
+   v19 — Início (áudios 3462–3465, 28/09/2026). Substitui telaInicio.
+   ===================================================================================== */
+/* (4) ordem: porções (entrada), lanches, combos, pizzas, bebidas */
+{ const ord = ["porcoes","lanches","combos","pizzas","bebidas"];
+  CATS_APP.sort((a,b)=>(ord.indexOf(a.id)+99)%99 - (ord.indexOf(b.id)+99)%99); }
+/* (3) POP do Dia: carrossel de promoções, rola pro lado, toca e vai */
+function popDoDia(){
+  return `<div class="sec-h"><h2>POP do Dia</h2></div>
+    <div class="pdd" id="pop-do-dia">${PEDIDAS.map(p=>`<button class="pdd-c" onclick="ir('${p.ir}')"><img src="${p.f}" alt="" loading="lazy">
+      <span class="pdd-t"><b>${p.t}</b><span class="pdd-p">R$ ${p.p}</span></span><span class="pd-quero">Quero ${ic("seta")}</span></button>`).join("")}</div>`;
+}
+function telaInicio(){
+  let h = strip() + topo();
+  /* (2) capa só com a logo, grande, sem propaganda */
+  h += `<section class="capa so-logo"><div class="so-logo-img"><img src="logo_pop.jpg" alt="POP Lanches e Pizzas"></div></section>`;
+  h += `<div class="catcards">${CATS_APP.map(c=>`<button class="cc ${c.id===S.cat?"on":""}" onclick="ir('cardapio-${c.id}')"><span class="cc-img">${SV(artCat(c.id))}</span><b>${CURTO[c.id]}</b></button>`).join("")}</div>`;
+  const ult = S.ultimo;
+  h += `<div class="denovo"><div class="dn-pics">${ult.map(x=>`<span>${SV(item(x.id).art)}</span>`).join("")}</div>
+    <div class="dn-t"><small>Seu último pedido</small><b>${ult.map(x=>(x.qtd>1?x.qtd+"× ":"")+item(x.id).nome.replace("Refrigerante","Refri").replace(" e Bacon","")).join(" + ")}</b><span class="ilus" style="margin-top:3px">exemplo</span></div>
+    <button class="dn-btn" id="denovo" onclick="pedirDeNovo(event)">${ic("denovo")}De novo</button></div>`;
+  h += popDoDia();
+  const mais = ["xtudo","calabresa","batatabaconcheddar","xfilematador","frangocatupiry","combobacon"].map(item);
+  h += `<div class="sec-h"><h2>Destaques <span class="ilus">escolha ilustrativa</span></h2><button onclick="ir('cardapio-tudo')">Ver todos ${ic("seta")}</button></div>
+    <div class="mp">${mais.map(it=>`<div class="mpc" onclick="ir('produto-${it.id}')"><div class="mpc-img">${SV(it.art)}</div>
+      <div class="mpc-b"><b>${esc(it.nome)}</b><p>${esc(it.desc)}</p><div class="mpc-f"><span class="pr">${it.tipo==="pizza"?"<small>grande 8 pedaços</small>":""}${brl(aPartir(it))}${it.tipo==="variante"&&it.tams.length>1?`<small class="dif">${difTxt(it.tams)}</small>`:""}</span>
+      <button class="addb" data-add="${it.id}" onclick="quickAdd('${it.id}',event)" aria-label="Adicionar ${esc(it.nome)}">${ic("mais","stroke-width='2.6'")}</button></div></div></div>`).join("")}</div>`;
+  const cf = item("combobacon");
+  h += `<div class="combo" onclick="ir('cardapio-combos')"><div class="selo-r">BATATA<b>+</b>REFRI</div><div class="cb-arte">${SV(gCombo("burger"))}</div>
+    <div class="cb-t"><span class="rotulo">Combos do POP · 4 opções</span><h3>${esc(cf.nome)}</h3><p>${esc(cf.desc)}</p>
+    <div class="cb-f"><b>${brl(cf.preco)}</b><button onclick="event.stopPropagation();quickAdd('combobacon',event)">Quero ${ic("seta")}</button></div></div></div>`;
+  h += `<div class="direto"><div class="d-ic">${ic("fogo")}</div><div><b>Sem app no meio.</b><span>Você pede aqui e o pedido cai direto na cozinha do POP.</span></div></div>`;
+  h += `<div class="servicos"><div>${ic("moto")}<b>Entrega</b><small>taxa por bairro</small></div><div>${ic("loja")}<b>Retirada</b><small>no balcão do POP</small></div><div>${ic("cartao")}<b>Pix e cartão</b><small>pago aqui mesmo</small></div></div>`;
+  h += selo();
+  return h;
 }
 
 
