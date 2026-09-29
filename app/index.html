@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
-<meta name="previa-commit" content="938c75f2d217">
+<meta name="previa-commit" content="1f73619c767c">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1a1414">
 <title>POP Lanches e Pizzas — prévia do app v20 (ZELES)</title>
@@ -1115,7 +1115,7 @@ function telaInicio(){
 }
 function selo(){
   return `<div class="selo-pe">🧪 <b>Proposta ilustrativa da ZELES para o POP.</b> Cardápio e preços <b>transcritos do story do POP de 31/12/2025</b> — conferir com o balcão antes de publicar. Taxas, tempos, destaques e pedidos de exemplo são <b>fictícios</b>. Pagamento simulado: nada é cobrado.<br>📷 <b>Fotos:</b> fotos reais de lojas bem avaliadas do iFood (Goiânia), usadas <b>só para ilustrar esta prévia</b> — não vão para o site do POP. No site de verdade entram as fotos do próprio POP, feitas numa sessão de fotos profissional.</div>
-    <p class="fonte">POP Lanches e Pizzas · Jataí/GO · prévia de app v8 (comanda e pop do dia) · ZELES · Inteligência aplicada</p>`;
+    <p class="fonte">POP Lanches e Pizzas · Jataí/GO · prévia do app v20 · 29/09/2026 · ZELES · Inteligência aplicada</p>`;
 }
 
 /* ============ TELA: CARDÁPIO ============ */
@@ -1470,7 +1470,7 @@ function telaGestao(){
   h += `<div class="g-sec"><h2>De onde veio o pedido ${EX}</h2><div class="card bars">${oe.map(([n,v])=>`<div class="b"><span class="nm">${n}</span><div class="track"><div class="fill" style="width:${v/oe[0][1]*100}%;background:var(--green)"></div></div><span class="val">${pagos?Math.round(v/pagos*100):0}%</span></div>`).join("")}
       <p class="note">Pedido que veio de anúncio volta pro anúncio como venda — é assim que se sabe se o anúncio paga.</p></div></div>`;
   h += `<div class="selo-pe">🧪 <b>Proposta ilustrativa.</b> Todos os números desta tela são de exemplo, gerados pra mostrar o painel pronto — nenhum é do POP. Os itens e preços são os do cardápio real (story de 31/12/2025).</div>`;
-  h += `<div class="foot">ZELES · Inteligência aplicada · prévia de app v4 · 27/09/2026</div>`;
+  h += `<div class="foot">ZELES · Inteligência aplicada · prévia do app v20 · 29/09/2026</div>`;
   return h;
 }
 function avanca(num, est){
