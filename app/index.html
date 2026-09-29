@@ -4,10 +4,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
-<meta name="previa-commit" content="d004f3f07490">
+<meta name="previa-commit" content="bdee791659a3">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1a1414">
-<title>POP Lanches e Pizzas — prévia do app v17 (ZELES)</title>
+<title>POP Lanches e Pizzas — prévia do app v18 (ZELES)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;0,800;0,900;1,800;1,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -582,6 +582,22 @@ img.foto{width:100%;height:100%;object-fit:cover;display:block;border-radius:inh
 .perg-bts button{border:0;border-radius:14px;padding:14px;font:inherit;font-weight:700;font-size:15px}
 .perg-bts .perg-nao{background:#f3ece6;color:var(--ink)}
 .perg-bts .perg-sim{background:var(--red);color:#fff}
+
+/* v18 */
+.it.sem-clique{cursor:default}
+.na-com{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 6px;margin-right:6px;border-radius:10px;background:var(--red);color:#fff;font-size:12px;font-weight:800;vertical-align:1px}
+.cont{position:absolute;right:10px;bottom:10px;display:flex;align-items:center;gap:8px;background:#fff;border-radius:20px;box-shadow:0 3px 10px rgba(80,40,20,.12);padding:3px}
+.cont button{width:30px;height:30px;border-radius:50%;border:0;font-size:18px;font-weight:800;line-height:1;display:grid;place-items:center}
+.cont .cont-m{background:#f1ebe6;color:var(--ink,#2a1d18)}
+.cont .cont-p{background:var(--red);color:#fff}
+.cont b{min-width:14px;text-align:center;font-size:15px}
+.it.aberto{margin-bottom:0;border-radius:18px 18px 0 0;box-shadow:none}
+.inl{background:#fff;border-radius:0 0 18px 18px;padding:4px 12px 12px;margin:-2px 0 10px;box-shadow:0 3px 10px rgba(80,40,20,.06);border-top:1px solid #f1ebe6}
+.inl .bloco{margin-top:10px}
+.inl textarea{width:100%;min-height:56px;box-sizing:border-box}
+.inl-bar{display:flex;gap:10px;align-items:center;margin-top:12px}
+.inl-bar .big{flex:1}
+.bloco.faltou .chipsx button{border-color:var(--red)}
 </style>
 </head>
 <body>
@@ -1648,6 +1664,98 @@ function addCarrinho(){
   if ((it.tipo==="lanche" || it.tipo==="pizza") && !temBebida()) { perguntaBebida(l); return; }
   fechaAdd(l, S.voltar);
 }
+
+/* =====================================================================================
+   v18 — leva do Cassiano (áudios 3444–3459, 28/09/2026). Substitui linhaItem e quickAdd.
+   ===================================================================================== */
+/* (1) só "Suco" até o Moisés confirmar vitamina */
+{ const s = item("suco"); if (s) s.nome = "Suco"; }
+{ const b = CATS.find(c=>c.id==="bebidas"); if (b) b.sub = "Refrigerantes, sucos e cremes."; }
+for (const k in TITULO_GRUPO) TITULO_GRUPO[k] = TITULO_GRUPO[k].replace(/ e vitaminas/i, "");
+const INL_ACUCAR = ["suco"], INL_OBS = ["suco","creme"];
+let INL = {};
+function naComanda(id){ return S.carrinho.filter(x=>x.id===id).reduce((a,x)=>a+x.qtd,0); }
+function simples(it){ return it.cat==="bebidas" && it.tipo!=="variante"; }
+function linhaItem(it, termo){
+  const esg = S.esgotado[it.id], n = naComanda(it.id), aberto = INL.id===it.id;
+  const nome = termo ? marca(it.nome, termo) : esc(it.nome), desc = termo ? marca(it.desc, termo) : esc(it.desc);
+  const clique = esg ? "toast('Esgotado hoje.')" : simples(it) ? "" : it.tipo==="variante" ? `abreInl('${it.id}')` : `ir('produto-${it.id}')`;
+  let bt = "";
+  if (!esg) bt = simples(it) && n
+    ? `<div class="cont" data-cont="${it.id}" onclick="event.stopPropagation()"><button class="cont-m" onclick="menosSimples('${it.id}',event)" aria-label="Tirar um">−</button><b>${n}</b><button class="cont-p" onclick="quickAdd('${it.id}',event)" aria-label="Mais um">+</button></div>`
+    : `<button class="addb" data-add="${it.id}" onclick="quickAdd('${it.id}',event)" aria-label="Adicionar ${esc(it.nome)}">${ic("mais","stroke-width='2.6'")}</button>`;
+  const badge = n && !simples(it) ? `<span class="na-com" title="na comanda">${n}</span>` : "";
+  return `<div class="it-w" data-w="${it.id}" data-termo="${esc(termo||"")}"><div class="it ${esg?"esg":""} ${simples(it)?"sem-clique":""} ${aberto?"aberto":""}" data-id="${it.id}" ${clique?`onclick="${clique}"`:""}>
+    <div class="thumb">${SV(it.art)}</div>
+    <div class="txt">${it.num?`<span class="num">Nº ${it.num}</span>`:""}<h3>${badge}${nome}${esg?'<span class="tag-esg">ESGOTADO HOJE</span>':""}${it.conferir?'<span class="conf" title="leitura do print a conferir">conferir</span>':""}</h3><p>${desc}</p><div class="price">${precoTxt(it)}</div></div>
+    ${bt}</div>${aberto?painelInl(it):""}</div>`;
+}
+function painelInl(it){
+  const m = INL, f = m.falta||{};
+  let h = `<div class="inl" id="inl-${it.id}">`;
+  if (it.tams.length>1){ const t0 = Math.min(...it.tams.map(t=>t.preco));
+    h += `<div class="bloco"><h3>Tamanho <span class="rule req">obrigatório</span></h3><div class="segs" style="grid-template-columns:repeat(${it.tams.length},1fr)">
+      ${it.tams.map((t,i)=>`<button class="${m.tamIx===i?"on":""}" data-inl-tam="${i}" onclick="inlSet('tamIx',${i})"><b>${esc(t.nome)}</b><em>${t.preco>t0?"+ "+brl(t.preco-t0):brl(t.preco)}</em></button>`).join("")}</div></div>`; }
+  if (it.sabores) h += `<div class="bloco ${f.sab&&!m.sabor?"faltou":""}" id="inl-sab"><h3>Sabor <span class="rule req">obrigatório</span></h3><div class="chipsx">
+    ${it.sabores.map(sb=>`<button class="${m.sabor===sb?"on":""}" data-inl-sab="${esc(sb)}" onclick="inlSet('sabor','${sb.replace(/'/g,"")}')">${esc(sb)}</button>`).join("")}</div></div>`;
+  /* (2) açúcar: sem título, obrigatório */
+  if (INL_ACUCAR.includes(it.id)) h += `<div class="bloco ${f.acucar&&!m.acucar?"faltou":""}" id="inl-acucar"><div class="chipsx">
+    ${["Com açúcar","Sem açúcar"].map(a=>`<button class="${m.acucar===a?"on":""}" data-inl-acucar="${a}" onclick="inlSet('acucar','${a}')">${a}</button>`).join("")}</div></div>`;
+  if (INL_OBS.includes(it.id)) h += `<div class="bloco"><h3>Observação</h3><textarea id="inl-obs" oninput="INL.obs=this.value">${esc(m.obs||"")}</textarea></div>`;
+  const pu = it.tams[m.tamIx].preco;
+  h += `<div class="inl-bar"><div class="qty"><button onclick="inlSet('qtd',Math.max(1,INL.qtd-1))">−</button><b>${m.qtd}</b><button onclick="inlSet('qtd',INL.qtd+1)">+</button></div>
+    <button class="big" id="inl-add" onclick="inlAdd(event)"><span>Adicionar</span><span>${brl(pu*m.qtd)}</span></button></div></div>`;
+  return h;
+}
+function refreshItem(id){
+  document.querySelectorAll(`.it-w[data-w="${id}"]`).forEach(w=>{
+    const t = document.createElement("div"); t.innerHTML = linhaItem(item(id), w.dataset.termo||"").trim();
+    w.replaceWith(t.firstElementChild); });
+}
+function abreInl(id){
+  const velho = INL.id;
+  INL = velho===id ? {} : {id, tamIx:0, sabor:null, acucar:null, obs:"", qtd:1};
+  if (velho && velho!==id) refreshItem(velho);
+  refreshItem(id);
+  const p = $("#inl-"+id); if (p) p.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+function inlSet(k, v){ INL[k] = v; refreshItem(INL.id); }
+function inlAdd(ev){
+  const it = item(INL.id), m = INL;
+  const falta = (k, sel) => { m.falta = {...(m.falta||{}), [k]:1}; refreshItem(it.id); const b = $(sel); if (b){ b.scrollIntoView({behavior:"smooth",block:"center"}); treme(b); } };
+  if (it.sabores && !m.sabor) return falta("sab", "#inl-sab");
+  if (INL_ACUCAR.includes(it.id) && !m.acucar) return falta("acucar", "#inl-acucar");
+  const det = [it.tams[m.tamIx].nome];
+  if (m.acucar) det.push(m.acucar.toLowerCase());
+  if (m.obs) det.push("Obs.: "+m.obs);
+  juntaNoCarrinho({id:it.id, nome: it.nome + (m.sabor ? " · "+m.sabor : ""), det:det.join(" · "), qtd:m.qtd, pu:it.tams[m.tamIx].preco});
+  const cf = $("#cartfloat"); if (cf) cf.classList.remove("off");
+  voar(ev && ev.currentTarget);
+  if (!$("#cartbtn")) atualizaCarrinhoUI(true);
+  INL = {}; refreshItem(it.id);
+  toast("Adicionado à comanda.");
+}
+/* (3)(4) bebida simples: só o "+" põe na comanda; depois vira "- N +" */
+function quickAdd(id, ev){
+  if (ev) ev.stopPropagation();
+  const it = item(id);
+  if (S.esgotado[id]) { toast("Esgotado hoje."); return; }
+  if (it.tipo==="variante"){ abreInl(id); return; }
+  if (["pizza","lanche","combo"].includes(it.tipo)){ ir("produto-"+id); return; }
+  juntaNoCarrinho({id, nome:it.nome, det:"", qtd:1, pu:it.preco});
+  const cf = $("#cartfloat"); if (cf) { cf.classList.remove("off"); }
+  voar(ev && ev.currentTarget);
+  if (!$("#cartbtn")) atualizaCarrinhoUI(true);
+  refreshItem(id);
+}
+function menosSimples(id, ev){
+  if (ev) ev.stopPropagation();
+  const i = S.carrinho.findIndex(x=>x.id===id && !x.det);
+  if (i<0) return;
+  if (S.carrinho[i].qtd>1) S.carrinho[i].qtd--; else S.carrinho.splice(i,1);
+  atualizaCarrinhoUI(true); refreshItem(id);
+}
+
 
 render();
 
