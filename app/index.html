@@ -4,10 +4,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
-<meta name="previa-commit" content="7bd4e1732069">
+<meta name="previa-commit" content="4261fcb2ad8e">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1a1414">
-<title>POP Lanches e Pizzas — prévia do app v14 (ZELES)</title>
+<title>POP Lanches e Pizzas — prévia do app v15 (ZELES)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;0,800;0,900;1,800;1,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -1170,7 +1170,7 @@ function telaProduto(id){
     if (it.sabores) h += `<div class="bloco ${m.falta&&m.falta.sab&&!m.sabor?"faltou":""}" id="bloco-sab"><h3>Sabor <span class="rule req">obrigatório</span></h3><div class="chipsx">
       ${it.sabores.map(sb=>`<button class="${m.sabor===sb?"on":""}" data-sab="${esc(sb)}" onclick="montagem.sabor='${sb}';render()">${esc(sb)}</button>`).join("")}</div></div>`;
   }
-  h += `<div class="bloco"><h3>Observação</h3><textarea placeholder="${it.cat==="combos"?"Ex.: qual refri lata (o cardápio não diz)":"Ex.: caprichar no molho, tocar o interfone"}" oninput="montagem.obs=this.value">${esc(m.obs)}</textarea></div></div>`;
+  h += `<div class="bloco"><h3>Observação</h3><textarea placeholder="${it.cat==="combos"?"Ex.: qual refri lata (o cardápio não diz)":""}" oninput="montagem.obs=this.value">${esc(m.obs)}</textarea></div></div>`;
   const pu = precoMontagem(it, m);
   h += `<div class="pd-bar"><div class="qty"><button onclick="montagem.qtd=Math.max(1,montagem.qtd-1);render()">−</button><b>${m.qtd}</b><button onclick="montagem.qtd++;render()">+</button></div>
     <button class="big" id="btn-add" onclick="addCarrinho()"><span>Adicionar</span><span>${brl(pu*m.qtd)}</span></button></div>`;
