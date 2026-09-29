@@ -4,10 +4,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
-<meta name="previa-commit" content="e7b1a1fab782">
+<meta name="previa-commit" content="d004f3f07490">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#1a1414">
-<title>POP Lanches e Pizzas — prévia do app v16 (ZELES)</title>
+<title>POP Lanches e Pizzas — prévia do app v17 (ZELES)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;0,800;0,900;1,800;1,900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -580,8 +580,8 @@ img.foto{width:100%;height:100%;object-fit:cover;display:block;border-radius:inh
 .perg-box h3{margin:0 0 16px;font-size:18px;text-align:center}
 .perg-bts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .perg-bts button{border:0;border-radius:14px;padding:14px;font:inherit;font-weight:700;font-size:15px}
-.perg-bts .nao{background:#f3ece6;color:var(--ink)}
-.perg-bts .sim{background:var(--red);color:#fff}
+.perg-bts .perg-nao{background:#f3ece6;color:var(--ink)}
+.perg-bts .perg-sim{background:var(--red);color:#fff}
 </style>
 </head>
 <body>
@@ -1616,7 +1616,7 @@ function fechaAdd(l, destino){
 function perguntaBebida(l){
   const d = document.createElement("div"); d.className = "perg"; d.id = "perg-bebida";
   d.innerHTML = `<div class="perg-box" role="dialog" aria-modal="true" aria-labelledby="perg-t"><h3 id="perg-t">Deseja adicionar bebida?</h3>
-    <div class="perg-bts"><button class="nao" id="beb-nao">Não</button><button class="sim" id="beb-sim">Sim</button></div></div>`;
+    <div class="perg-bts"><button class="perg-nao" id="beb-nao">Não</button><button class="perg-sim" id="beb-sim">Sim</button></div></div>`;
   document.body.appendChild(d);
   d.querySelector("#beb-nao").onclick = () => { d.remove(); fechaAdd(l, S.voltar); };
   d.querySelector("#beb-sim").onclick = () => { d.remove(); fechaAdd(l, "cardapio-bebidas"); };
